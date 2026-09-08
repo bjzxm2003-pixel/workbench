@@ -1,0 +1,29 @@
+{
+  "last_run": "2026-09-08 12:16:58 UTC",
+  "date": "2026-09-08",
+  "real": 0,
+  "sim": 3,
+  "top3": [
+    {
+      "title": "70岁退休教师副业月入过万：这一代“新老人”正在改写养老剧本",
+      "platform": "今日头条",
+      "sim": true,
+      "metric": "模拟点赞 123，000"
+    },
+    {
+      "title": "75岁阿姨把日子过成诗：晚年最好的养生，是戒掉这三种“操心”",
+      "platform": "小红书",
+      "sim": true,
+      "metric": "模拟点赞 86，000"
+    },
+    {
+      "title": "养老院一床难求背后：银发经济正在重新定义“老有所养”",
+      "platform": "今日头条",
+      "sim": true,
+      "metric": "模拟点赞 54，000"
+    }
+  ],
+  "rewrite_title": "70岁也能活成“斜杠青年”：银发经济的风口，正等这届新老人",
+  "report_file": "data/media/reports/silver_2026-09-08.md",
+  "push": null
+}

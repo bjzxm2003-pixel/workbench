@@ -14,6 +14,11 @@ MASTER_FILE = BID_DIR / "master_bids.json"
 
 DEFAULT_BID_KEYWORDS = ["EPC", "PC", "施工", "风电", "煤电", "光伏", "电缆"]
 
+DEFAULT_MEDIA_KEYWORDS = {
+    "silver": ["银发经济", "康养", "养老产业", "老龄化", "适老化", "老年生活"],
+    "guoxue": ["国学", "易经", "道德经", "黄帝内经", "论语", "人生智慧"],
+}
+
 STATUS_VALUES = ["已投", "在投", "放弃", ""]
 
 
@@ -34,6 +39,21 @@ def load_keywords() -> list:
         except Exception:
             pass
     return list(DEFAULT_BID_KEYWORDS)
+
+
+def load_media_keywords(domain: str) -> list:
+    """自媒体关键词：config/media_keywords.json 的 {domain:[...]}，否则内置默认。"""
+    ensure_dirs()
+    f = CONFIG_DIR / "media_keywords.json"
+    if f.exists():
+        try:
+            data = json.loads(f.read_text(encoding="utf-8"))
+            items = (data or {}).get(domain)
+            if items:
+                return [str(k).strip() for k in items if str(k).strip()]
+        except Exception:
+            pass
+    return list(DEFAULT_MEDIA_KEYWORDS.get(domain, []))
 
 
 def load_env_file(path: Path):

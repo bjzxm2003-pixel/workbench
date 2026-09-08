@@ -52,7 +52,7 @@ export const domains = [
         schedule: '每日 17:00',
         trigger: 'auto',
         desc: '搜今日头条/小红书“银发经济·康养·养老产业”爆款，取点赞最高 3 篇做四步拆解（标题/核心/框架/改写角度），并改写 1 篇今日头条文案。',
-        progress: 'M4 · 待开发',
+        progress: 'M4 · 已接入',
       },
     ],
   },

@@ -766,3 +766,22 @@ a.btn-ghost.as-link { text-decoration: none; }
 .rb-last.dim { color: var(--dim); }
 .rb-run { margin-left: auto; }
 .rem-msg { margin: 6px 20px 0; }
+
+/* M4 · 银发康养日报 */
+.silver-body { display: flex; flex-direction: column; gap: 16px; }
+.top3-strip {
+  display: flex; flex-direction: column; gap: 4px; margin-top: 12px;
+  padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r-md);
+  background: rgba(10, 16, 31, 0.35);
+}
+.tt { font-family: var(--mono); font-size: 9.5px; letter-spacing: 1.6px; color: var(--dim); }
+.tt-item { font-size: 12px; color: #dbe7ff; line-height: 1.7; }
+.tt-item em { font-style: normal; font-family: var(--mono); font-size: 10px; color: var(--violet); margin-left: 6px; }
+.report-panel { margin-top: 0; }
+.md-view {
+  margin: 0; padding: 18px 22px; overflow: auto; max-height: 640px;
+  font-family: 'SF Mono', Menlo, Consolas, 'PingFang SC', monospace;
+  font-size: 12px; line-height: 1.85; color: #c9d8f5; white-space: pre-wrap; word-break: break-word;
+}
+.md-view::-webkit-scrollbar { width: 8px; }
+.md-view::-webkit-scrollbar-thumb { background: rgba(120, 150, 220, 0.2); border-radius: 4px; }

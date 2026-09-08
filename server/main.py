@@ -206,3 +206,51 @@ def reminder_run(payload: dict | None = None):
     if isinstance(payload, dict) and "push" in payload:
         push = bool(payload.get("push"))
     return run_reminder(push=push)
+
+
+# ---------- M4：银发康养自媒体助手 ----------
+@app.get("/api/jobs/silver/status")
+def silver_status():
+    from pathlib import Path
+
+    from .config import DATA_DIR, load_media_keywords
+    from .llm import llm_configured
+
+    last = None
+    last_file = DATA_DIR / "media" / "silver_last_run.json"
+    if last_file.exists():
+        try:
+            last = json.loads(last_file.read_text(encoding="utf-8"))
+        except Exception:
+            last = None
+    return {
+        "sc": wechat.sc_configured(),
+        "llm": llm_configured(),
+        "keywords": load_media_keywords("silver"),
+        "schedule": "每日 17:00（北京）· GitHub Actions cron '0 9 * * *'",
+        "last_run": last,
+    }
+
+
+@app.post("/api/jobs/silver/run")
+def silver_run(payload: dict | None = None):
+    """立即生成今日银发康养日报（热榜采集 + LLM 拆解改写 + 可选推送）"""
+    from jobs.silver_media import run_silver
+
+    push = None
+    if isinstance(payload, dict) and "push" in payload:
+        push = bool(payload.get("push"))
+    return run_silver(push=push)
+
+
+@app.get("/api/jobs/silver/report")
+def silver_report(date: str):
+    """读取某日报告原文（date=YYYY-MM-DD）"""
+    from pathlib import Path
+
+    from .config import DATA_DIR
+
+    f = DATA_DIR / "media" / "reports" / f"silver_{date}.md"
+    if not f.exists():
+        raise HTTPException(status_code=404, detail=f"无 {date} 的银发康养日报")
+    return {"date": date, "markdown": f.read_text(encoding="utf-8")}

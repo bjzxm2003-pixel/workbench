@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import BaseIcon from './BaseIcon.vue'
 import AssistantCard from './AssistantCard.vue'
 import BiddingPage from './BiddingPage.vue'
+import SilverPage from './SilverPage.vue'
 import { keywordPresets } from '../data/modules'
 
 const props = defineProps({
@@ -13,7 +14,7 @@ const accentClass = computed(() => `accent-${props.domain.accent}`)
 const keywords = computed(() => keywordPresets[props.domain.id] || [])
 const stageNotes = {
   bid: 'M1/M2/M3 已接入 · 自动化日程就绪',
-  silver: 'M0 外壳就绪 · M4 银发康养助手（待开发）',
+  silver: 'M4 已接入 · 每日 17:00',
   guoxue: 'M0 外壳就绪 · M5 国学助手（待开发）',
 }
 </script>
@@ -41,7 +42,10 @@ const stageNotes = {
       :keywords="keywords"
     />
 
-    <!-- 银发康养 / 国学自媒体：通用助手卡片 -->
+    <!-- 银发康养：M4 日报助手 -->
+    <SilverPage v-else-if="domain.id === 'silver'" />
+
+    <!-- 国学自媒体：通用助手卡片（M5 接入前占位） -->
     <template v-else>
       <div class="assistant-grid">
         <AssistantCard
@@ -56,7 +60,7 @@ const stageNotes = {
       <div class="placeholder">
         <div class="ph-inner">
           <div class="ph-title"><BaseIcon name="upload" :size="16" /> 里程碑施工中</div>
-          <p>该业务域的功能将在后续里程碑（M4/M5）接入。每个助手完成后会在此页面呈现真实数据与操作入口。</p>
+          <p>该业务域的功能将在 M5 接入。完成后会在此页面呈现真实数据与操作入口。</p>
         </div>
       </div>
     </template>
