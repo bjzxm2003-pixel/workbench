@@ -53,6 +53,14 @@ export const confirmPlan = async (token, push) => {
   return r
 }
 
+// ---------- M2：日招标项目筛选助手 ----------
+export const dailyStatus = () => apiGet('/api/jobs/daily/status')
+export const runDailyJob = async (push) => {
+  const r = await apiPost('/api/jobs/daily/run', { push })
+  await refreshMaster()
+  return r
+}
+
 // ---------- 展示/登记 ----------
 function dayOnly(d) {
   return new Date(d.getFullYear(), d.getMonth(), d.getDate())

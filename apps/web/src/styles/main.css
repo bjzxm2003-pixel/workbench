@@ -711,3 +711,45 @@ a.btn-ghost.as-link { text-decoration: none; }
 /* 总览顶部模式章 */
 .stage-pill.ok { color: #4ef0c0; border-color: rgba(52, 224, 178, 0.4); background: rgba(52, 224, 178, 0.08); }
 .stage-pill.warn { color: var(--amber); border-color: rgba(245, 184, 75, 0.4); background: rgba(245, 184, 75, 0.08); }
+
+/* ============================================================
+   M2 · 日招标筛选助手面板 + 文字快捷登记
+   ============================================================ */
+.daily-body { padding: 14px 20px 18px; }
+.daily-status {
+  display: flex; gap: 26px; flex-wrap: wrap;
+  padding: 12px 14px; margin-bottom: 12px;
+  border: 1px solid var(--line); border-radius: var(--r-md);
+  background: rgba(10, 16, 31, 0.35);
+}
+.ds-item { display: flex; flex-direction: column; gap: 3px; }
+.ds-item > span { font-family: var(--mono); font-size: 8.5px; letter-spacing: 1.8px; color: var(--dim); }
+.ds-item b { font-size: 12px; font-weight: 600; color: #cfe4ff; }
+.ds-item b.dim { color: var(--dim); }
+.daily-result { margin-top: 12px; }
+
+.mini-items { list-style: none; margin-top: 6px; display: flex; flex-direction: column; gap: 4px; }
+.mini-items li {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  font-size: 12px; padding: 5px 10px;
+  border-left: 2px solid rgba(56, 232, 255, 0.4); background: rgba(56, 232, 255, 0.04);
+  border-radius: 0 6px 6px 0;
+}
+.mini-items a { color: var(--cyan); text-decoration: none; }
+.mini-items a:hover { text-decoration: underline; }
+
+.quickreg {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin-top: 10px; padding-top: 10px; border-top: 1px dashed rgba(120, 150, 220, 0.15);
+}
+.qr-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--muted);
+  font-family: var(--mono); white-space: nowrap;
+}
+.quickreg input {
+  flex: 1; min-width: 220px; font: inherit; font-size: 12px; color: var(--txt);
+  background: rgba(6, 10, 20, 0.8); border: 1px solid var(--line); border-radius: 8px;
+  padding: 7px 10px; outline: none;
+}
+.quickreg input:focus { border-color: rgba(56, 232, 255, 0.5); box-shadow: 0 0 0 3px rgba(56, 232, 255, 0.12); }
+.quickreg .btn-ghost { padding: 7px 14px; font-size: 11.5px; }

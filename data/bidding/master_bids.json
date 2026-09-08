@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-08 13:53:41",
+  "updated_at": "2026-09-08 14:01:24",
   "source": "20260901国家能源集团2026年9月第一批招标计划发布汇总表.pdf",
   "rows": [
     {
@@ -3046,6 +3046,34 @@
         "施工"
       ],
       "source": "pdf-table"
+    },
+    {
+      "name": "贵州公司织金公司锅炉燃气代燃油节能改造EPC项目公开招标项目（第3次）招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-09-08",
+      "open_at": "2026-10-08 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "EPC"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20260908/d6873b8a-9fd7-43c4-8a8f-8cd0bf4779fb.html"
+    },
+    {
+      "name": "辽宁公司国能（沈阳）热电有限公司沈西热电厂2×350MW热电联产扩建项目电缆及桥架精细化管理技术服务公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-09-08",
+      "open_at": "2026-09-29 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "电缆"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20260908/e22f9927-f0f2-410c-a56f-bc5e2f2462f8.html"
     }
   ]
 }

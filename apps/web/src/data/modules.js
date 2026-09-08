@@ -24,7 +24,7 @@ export const domains = [
         schedule: '每日 18:00',
         trigger: 'auto',
         desc: '抓取国能e招当日招标公告，关键词筛查后合并更新主表并推送新表；投标单位与状态按你的文字登记自动更新。',
-        progress: 'M2 · 待开发',
+        progress: 'M2 · 已接入',
       },
       {
         id: 'remind',

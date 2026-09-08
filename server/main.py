@@ -1,4 +1,5 @@
 """工作台本地后端：月招标计划筛选助手（M1）与主表接口"""
+import json
 import uuid
 from datetime import datetime
 
@@ -140,3 +141,36 @@ def master_file(fmt: str = "xlsx"):
     media = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" if fmt == "xlsx" else "text/csv; charset=utf-8"
     name = f"招标主表_{datetime.now().strftime('%Y%m%d')}.{fmt}"
     return FileResponse(path, media_type=media, filename=name)
+
+
+# ---------- M2：日招标项目筛选助手（手动触发/状态） ----------
+@app.get("/api/jobs/daily/status")
+def daily_status():
+    from pathlib import Path
+
+    from .config import DATA_DIR
+
+    last_file = DATA_DIR / "bidding" / "daily_last_run.json"
+    last = None
+    if last_file.exists():
+        try:
+            last = json.loads(last_file.read_text(encoding="utf-8"))
+        except Exception:
+            last = None
+    return {
+        "sc": wechat.sc_configured(),
+        "keywords": load_keywords(),
+        "schedule": "每日 18:00（北京）· GitHub Actions cron '0 10 * * *'",
+        "last_run": last,
+    }
+
+
+@app.post("/api/jobs/daily/run")
+def daily_run(payload: dict | None = None):
+    """立即运行一次日筛选：抓取当日→筛查→合并主表→导出→（可选）推送"""
+    from jobs.daily_bidding import run_daily
+
+    push = None
+    if isinstance(payload, dict) and "push" in payload:
+        push = bool(payload.get("push"))
+    return run_daily(push=push)

@@ -1,0 +1,4 @@
+# GitHub Actions 定时任务轻量依赖（jobs/*.py）
+requests
+beautifulsoup4
+openpyxl

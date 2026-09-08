@@ -31,6 +31,11 @@ def _norm(text) -> str:
     return re.sub(r"\s+", "", str(text or "")).strip().lower()
 
 
+def norm_name(text) -> str:
+    """项目名规范化（去空白/小写），用于跨来源去重。"""
+    return _norm(text)
+
+
 def _norm_header(text) -> str:
     # 表头：去掉常见括号说明后规范化
     t = re.sub(r"[（(].*?[)）]", "", str(text or ""))
@@ -222,11 +227,22 @@ def parse_file(filename: str, content: bytes) -> list[dict]:
     raise ValueError(f"不支持的文件类型 .{ext}（支持 xlsx / csv / pdf）")
 
 
+def match_keywords(name, keywords: list[str] | None = None) -> list[str]:
+    """命中且已剔除子串重复的关键词列表（EPC 命中时不再单列 PC）。"""
+    keywords = keywords or load_keywords()
+    kws_low = [k.casefold() for k in keywords]
+    name_low = str(name or "").casefold()
+    hits = [keywords[i] for i, k in enumerate(kws_low) if k in name_low]
+    return [
+        kw
+        for kw in hits
+        if not any(len(k2) > len(kw) and kw.casefold() in k2.casefold() for k2 in hits)
+    ]
+
+
 def filter_and_dedupe(rows: list[dict], keywords: list[str] | None = None) -> dict:
     """关键词筛查 + 按项目名去重，返回汇总。"""
     keywords = keywords or load_keywords()
-    kws_low = [k.casefold() for k in keywords]
-
     matched: list[dict] = []
     seen: dict[str, int] = {}
     dup_dropped = 0
@@ -235,16 +251,15 @@ def filter_and_dedupe(rows: list[dict], keywords: list[str] | None = None) -> di
         name = _cell(r.get("name"))
         if not name:
             continue
-        name_low = name.casefold()
-        hits = [keywords[i] for i, k in enumerate(kws_low) if k in name_low]
+        hits = match_keywords(name, keywords)
         if not hits:
             continue
-        # 去子串重复命中：EPC 命中时不再单列 PC
-        hits = [
-            kw
-            for kw in hits
-            if not any(len(k2) > len(kw) and kw.casefold() in k2.casefold() for k2 in hits)
-        ]
+        key = _norm(name)
+        if key in seen:
+            dup_dropped += 1
+            continue
+        seen[key] = 1
+        r["keywords"] = hits
         key = _norm(name)
         if key in seen:
             dup_dropped += 1

@@ -9,6 +9,8 @@ import {
   uploadPlan,
   previewSample,
   confirmPlan,
+  dailyStatus,
+  runDailyJob,
   trackableRows,
   upcomingRows,
   statusCls,
@@ -90,6 +92,74 @@ const resetAll = () => {
   done.value = null
   file.value = null
   err.value = ''
+}
+
+// ---------- M2：日招标项目筛选助手 ----------
+const dStatus = ref(null)
+const dailyBusy = ref(false)
+const dailyErr = ref('')
+const dailyPush = ref(false)
+const dailyResult = ref(null)
+
+async function loadDailyStatus() {
+  try {
+    const s = await dailyStatus()
+    dStatus.value = s
+    dailyPush.value = !!s.sc
+  } catch {
+    /* 忽略 */
+  }
+}
+onMounted(loadDailyStatus)
+
+async function runDaily() {
+  dailyBusy.value = true
+  dailyErr.value = ''
+  dailyResult.value = null
+  try {
+    dailyResult.value = await runDailyJob(dailyPush.value)
+    loadDailyStatus()
+  } catch (e2) {
+    dailyErr.value = String(e2.message || e2)
+  } finally {
+    dailyBusy.value = false
+  }
+}
+
+// ---------- 文字快捷登记（解析"项目 … 状态 投标单位"） ----------
+const quickText = ref('')
+const parseQuick = () => {
+  let t = quickText.value.trim()
+  if (!t) return
+  let status = form.status
+  for (const s of ['已投', '在投', '放弃']) {
+    if (t.includes(s)) {
+      status = s
+      t = t.replace(s, ' ').replace(/\s+/g, ' ').trim()
+      break
+    }
+  }
+  const cands = candidates.value.filter((c) => t.includes(c.name) || c.name.includes(t))
+  let name = ''
+  if (cands.length) {
+    name = cands.slice().sort((a, b) => b.name.length - a.name.length)[0].name
+  }
+  let unit = ''
+  if (name) {
+    unit = t.replace(name, ' ')
+  } else {
+    name = t
+    unit = ''
+  }
+  unit = unit.replace(/投标单位|单位|[:：,，。、]/g, ' ').replace(/\s+/g, ' ').trim()
+  form.name = name
+  form.status = status
+  form.unit = unit
+  form.note = ''
+  quickText.value = ''
+  flash.value = `已填充：${name}（${status}${unit ? ' · ' + unit : ''}）→ 点「保存登记」写入主表`
+  clearTimeout(flashTimer)
+  flashTimer = setTimeout(() => (flash.value = ''), 4200)
 }
 
 // ---------- 开标提醒与状态登记 ----------
@@ -284,12 +354,62 @@ const modeBadge = computed(() => {
       </div>
     </section>
 
-    <!-- ② 开标提醒与状态登记（真实主表 / 演示） -->
+    <!-- ② 日招标项目筛选助手（M2） -->
+    <section class="rmodule">
+      <div class="rm-head">
+        <div class="rm-titles">
+          <div class="rm-kicker">DAILY BIDDING FILTER · M2 已接入</div>
+          <h3 class="rm-title">② 日招标项目筛选助手</h3>
+        </div>
+        <span class="rm-demo"><BaseIcon name="clock" :size="12" /> 每日 18:00 自动 · GH Actions</span>
+      </div>
+      <div class="daily-body">
+        <div class="daily-status">
+          <div class="ds-item"><span>调度</span><b>每日 18:00（北京）· 可随时手动运行</b></div>
+          <div class="ds-item">
+            <span>最近运行</span>
+            <b v-if="dStatus && dStatus.last_run">{{ dStatus.last_run.date }} · 新增 {{ dStatus.last_run.summary.added }} / 补全 {{ dStatus.last_run.summary.updated }}（{{ dStatus.last_run.last_run }}）</b>
+            <b v-else class="dim">尚未运行过</b>
+          </div>
+        </div>
+        <div class="up-actions">
+          <label class="chk"><input type="checkbox" v-model="dailyPush" /><span>运行后推送个人微信</span></label>
+          <button class="btn-primary" :disabled="dailyBusy" @click="runDaily">
+            <BaseIcon name="radar" :size="14" /> 立即运行一次
+          </button>
+          <span v-if="dailyBusy" class="up-loading"><i class="spin"></i> 抓取国能e招并合并主表…</span>
+          <span v-if="!dStatus || !dStatus.sc" class="sc-tip">SCKEY 未配置，推送将跳过</span>
+        </div>
+        <p v-if="dailyErr" class="up-err">{{ dailyErr }}</p>
+
+        <div v-if="dailyResult" class="pv-summary daily-result">
+          <div class="pv-chips">
+            <span class="pv-chip">当日公告 <b>{{ dailyResult.fresh }}</b></span>
+            <span class="pv-chip hit">关键词命中 <b>{{ dailyResult.matched }}</b></span>
+            <span class="pv-chip">历史已处理 <b>{{ dailyResult.history_skipped }}</b></span>
+            <span class="pv-chip dup">新增并入 <b>{{ dailyResult.added }}</b></span>
+            <span class="pv-chip">补全 <b>{{ dailyResult.updated }}</b></span>
+            <span class="pv-chip final">主表共 <b>{{ dailyResult.master_total }}</b> 项</span>
+          </div>
+          <div v-if="dailyResult.push" class="pv-kw">
+            <span class="tag">{{ dailyResult.push.sent ? '✅ 已推送个人微信' : '未推送：' + dailyResult.push.reason }}</span>
+          </div>
+          <ul v-if="dailyResult.added_items && dailyResult.added_items.length" class="mini-items">
+            <li v-for="it in dailyResult.added_items.slice(0, 8)" :key="it.name">
+              <a :href="it.url" target="_blank" rel="noreferrer">{{ it.name }}</a>
+              <span class="rel-tag">发布 {{ it.publish_at }} · 开标 {{ it.open_at || '待定' }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ③ 开标提醒与状态登记（真实主表 / 演示） -->
     <section class="rmodule">
       <div class="rm-head">
         <div class="rm-titles">
           <div class="rm-kicker">OPENING REMINDER · 状态登记</div>
-          <h3 class="rm-title">② 开标提醒与状态登记</h3>
+          <h3 class="rm-title">③ 开标提醒与状态登记</h3>
         </div>
         <span class="rm-demo" :class="{ warn: bids.state !== 'master' }">
           <BaseIcon name="check" :size="12" />
@@ -335,6 +455,15 @@ const modeBadge = computed(() => {
           <div class="fld fld-act">
             <button class="btn-primary" @click="saveReg"><BaseIcon name="check" :size="14" /> 保存登记</button>
           </div>
+        </div>
+        <div class="quickreg">
+          <span class="qr-label">文字登记</span>
+          <input
+            v-model="quickText"
+            placeholder='示例：织金公司锅炉燃气代燃油节能改造EPC项目公开招标项目（第3次）招标公告 已投 中国电建'
+            @keyup.enter="parseQuick"
+          />
+          <button class="btn-ghost" type="button" @click="parseQuick">解析并填充</button>
         </div>
         <p v-if="flash" class="reg-flash">{{ flash }}</p>
         <p v-if="flashErr" class="reg-flash err">{{ flashErr }}</p>

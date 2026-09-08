@@ -1,0 +1,21 @@
+{
+  "last_run": "2026-09-08 06:01:24 UTC",
+  "date": "2026-09-08",
+  "summary": {
+    "date": "2026-09-08",
+    "crawled": 13,
+    "fresh": 13,
+    "matched": 2,
+    "history_skipped": 0,
+    "added": 0,
+    "updated": 2,
+    "master_total": 233,
+    "push": null,
+    "notes": [
+      "抓取列表 13 条",
+      "2026-09-08 当日 13 条",
+      "关键词命中 2 条，历史去重后新增 2 条",
+      "主表合并：新增 0，补全 2，现共 233 项"
+    ]
+  }
+}
