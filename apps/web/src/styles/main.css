@@ -753,3 +753,16 @@ a.btn-ghost.as-link { text-decoration: none; }
 }
 .quickreg input:focus { border-color: rgba(56, 232, 255, 0.5); box-shadow: 0 0 0 3px rgba(56, 232, 255, 0.12); }
 .quickreg .btn-ghost { padding: 7px 14px; font-size: 11.5px; }
+
+/* M3 · 明日开标提醒条 */
+.remind-bar {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin: 12px 20px 2px; padding: 9px 12px;
+  border: 1px solid rgba(245, 184, 75, 0.28); border-radius: var(--r-md);
+  background: rgba(245, 184, 75, 0.05);
+}
+.rb-title { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700; color: #ffe3b8; letter-spacing: 0.5px; }
+.rb-sched, .rb-last { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.8px; color: var(--muted); }
+.rb-last.dim { color: var(--dim); }
+.rb-run { margin-left: auto; }
+.rem-msg { margin: 6px 20px 0; }

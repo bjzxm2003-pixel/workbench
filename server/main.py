@@ -174,3 +174,35 @@ def daily_run(payload: dict | None = None):
     if isinstance(payload, dict) and "push" in payload:
         push = bool(payload.get("push"))
     return run_daily(push=push)
+
+
+# ---------- M3：招标项目提醒助手（手动触发/状态） ----------
+@app.get("/api/jobs/reminder/status")
+def reminder_status():
+    from pathlib import Path
+
+    from .config import DATA_DIR
+
+    last_file = DATA_DIR / "bidding" / "reminder_last_run.json"
+    last = None
+    if last_file.exists():
+        try:
+            last = json.loads(last_file.read_text(encoding="utf-8"))
+        except Exception:
+            last = None
+    return {
+        "sc": wechat.sc_configured(),
+        "schedule": "每日 09:00（北京）· GitHub Actions cron '0 1 * * *'",
+        "last_run": last,
+    }
+
+
+@app.post("/api/jobs/reminder/run")
+def reminder_run(payload: dict | None = None):
+    """立即执行明日开标提醒（测试/手动）"""
+    from jobs.open_reminder import run_reminder
+
+    push = None
+    if isinstance(payload, dict) and "push" in payload:
+        push = bool(payload.get("push"))
+    return run_reminder(push=push)

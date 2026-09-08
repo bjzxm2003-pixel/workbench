@@ -11,6 +11,8 @@ import {
   confirmPlan,
   dailyStatus,
   runDailyJob,
+  reminderStatus,
+  runReminderJob,
   trackableRows,
   upcomingRows,
   statusCls,
@@ -160,6 +162,40 @@ const parseQuick = () => {
   flash.value = `已填充：${name}（${status}${unit ? ' · ' + unit : ''}）→ 点「保存登记」写入主表`
   clearTimeout(flashTimer)
   flashTimer = setTimeout(() => (flash.value = ''), 4200)
+}
+
+// ---------- M3：明日开标提醒（③模块内手动/测试） ----------
+const remStatus = ref(null)
+const remBusy = ref(false)
+const remMsg = ref('')
+const remOk = ref(true)
+
+async function loadReminderStatus() {
+  try {
+    remStatus.value = await reminderStatus()
+  } catch {
+    /* 忽略 */
+  }
+}
+onMounted(loadReminderStatus)
+
+async function runReminder() {
+  remBusy.value = true
+  remMsg.value = ''
+  try {
+    const r = await runReminderJob(true)
+    remOk.value = !!(r.push && r.push.sent)
+    remMsg.value =
+      r.count > 0
+        ? `已执行：明日 ${r.remind_date} 开标 ${r.count} 项 → ${r.push && r.push.sent ? '已推送个人微信 ✓' : (r.push ? r.push.reason : '未推送')}`
+        : `明日无开标项目 → ${(r.push && r.push.reason) || '未推送'}`
+    loadReminderStatus()
+  } catch (e2) {
+    remOk.value = false
+    remMsg.value = String(e2.message || e2)
+  } finally {
+    remBusy.value = false
+  }
 }
 
 // ---------- 开标提醒与状态登记 ----------
@@ -416,6 +452,16 @@ const modeBadge = computed(() => {
           {{ bids.state === 'master' ? '数据源：主表' : 'DEMO 样例' }}
         </span>
       </div>
+
+      <div class="remind-bar">
+        <span class="rb-title"><BaseIcon name="clock" :size="13" /> 明日开标自动提醒</span>
+        <span class="rb-sched">每日 09:00（北京）· GH Actions</span>
+        <span v-if="remStatus && remStatus.last_run" class="rb-last">最近：{{ remStatus.last_run.remind_date }} · {{ remStatus.last_run.count }} 项 · {{ remStatus.last_run.last_run.replace(' UTC', '') }}</span>
+        <span v-else class="rb-last dim">尚未运行</span>
+        <button class="btn-ghost rb-run" :disabled="remBusy" @click="runReminder">推送提醒测试</button>
+        <span v-if="remBusy" class="up-loading"><i class="spin"></i> 整理并推送…</span>
+      </div>
+      <p v-if="remMsg" class="reg-flash rem-msg" :class="{ err: !remOk }">{{ remMsg }}</p>
 
       <div class="reg-entry">
         <div class="reg-label-row">

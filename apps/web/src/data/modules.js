@@ -33,7 +33,7 @@ export const domains = [
         schedule: '每日 09:00',
         trigger: 'auto',
         desc: '筛查主表中“明日开标”的项目，把项目与投标单位信息整理成文字，推送到个人微信提醒。',
-        progress: 'M3 · 待开发',
+        progress: 'M3 · 已接入',
       },
     ],
   },

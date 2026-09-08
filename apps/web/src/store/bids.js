@@ -60,6 +60,9 @@ export const runDailyJob = async (push) => {
   await refreshMaster()
   return r
 }
+// ---------- M3：招标项目提醒助手 ----------
+export const reminderStatus = () => apiGet('/api/jobs/reminder/status')
+export const runReminderJob = (push) => apiPost('/api/jobs/reminder/run', { push })
 
 // ---------- 展示/登记 ----------
 function dayOnly(d) {
