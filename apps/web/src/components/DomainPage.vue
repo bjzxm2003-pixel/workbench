@@ -12,6 +12,7 @@ const props = defineProps({
 const accentClass = computed(() => `accent-${props.domain.accent}`)
 const keywords = computed(() => keywordPresets[props.domain.id] || [])
 const stageNotes = {
+  bid: 'M1 月计划筛选已接入 · M2/M3 待开发',
   silver: 'M0 外壳就绪 · M4 银发康养助手（待开发）',
   guoxue: 'M0 外壳就绪 · M5 国学助手（待开发）',
 }

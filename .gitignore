@@ -22,3 +22,7 @@ npm-debug.log*
 
 # npm local cache
 .npm-cache/
+
+# 生成的导出物与本地样例
+data/bidding/exports/
+data/samples/

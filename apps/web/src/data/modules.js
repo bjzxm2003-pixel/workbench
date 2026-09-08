@@ -15,7 +15,7 @@ export const domains = [
         schedule: '手动 · 上传文件',
         trigger: 'manual',
         desc: '上传月招标计划文件，按关键词（EPC / PC / 施工 / 风电 / 煤电 / 光伏 / 电缆）筛查去重，生成招标主表并推送个人微信。',
-        progress: 'M1 · 待开发',
+        progress: 'M1 · 已接入',
       },
       {
         id: 'daily',

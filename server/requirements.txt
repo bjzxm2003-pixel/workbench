@@ -1,0 +1,8 @@
+# Server 端 Python 依赖（M1 起）
+fastapi
+uvicorn[standard]
+openpyxl
+python-multipart
+requests
+pypdf
+pdfplumber

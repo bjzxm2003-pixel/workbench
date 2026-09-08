@@ -1,11 +1,12 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import BaseIcon from './BaseIcon.vue'
 import { domains, overview, allTasks, scheduleMinutes } from '../data/modules'
-import { openingsView, demoState } from '../store/demo'
-import { relLabel } from '../data/demo'
+import { bids, refreshMaster, upcomingRows, countRegistered, statusCls, fmtDay } from '../store/bids'
 
 defineEmits(['open'])
+
+onMounted(() => refreshMaster().catch(() => null))
 
 const tasks = computed(() =>
   allTasks()
@@ -13,9 +14,11 @@ const tasks = computed(() =>
     .sort((a, b) => scheduleMinutes(a.schedule) - scheduleMinutes(b.schedule))
 )
 
-const openings = computed(() => openingsView().map((o) => ({ ...o, rel: relLabel(o.date) })))
+const openings = computed(() => upcomingRows())
 const tomorrowCount = computed(() => openings.value.filter((o) => o.rel === '明日').length)
-const registeredCount = computed(() => demoState.registrations.length)
+const registeredCount = computed(() => countRegistered())
+const masterTotal = computed(() => (bids.state === 'master' ? bids.rows.length : 0))
+
 const todayGreet = computed(() => {
   const h = new Date().getHours()
   if (h < 6) return '夜深了'
@@ -34,15 +37,24 @@ const todayDate = computed(() =>
 )
 
 const stats = computed(() => [
-  { key: 'tasks', n: allTasks().length, label: '自动化助手', cap: 'M1 起分批接入', accent: 'cyan' },
-  { key: 'open7', n: openings.value.length, label: '近 7 日开标', cap: '示例数据 · 实时计算', accent: 'violet' },
-  { key: 'open1', n: tomorrowCount.value, label: '明日开标', cap: '09:00 推送提醒', accent: 'amber' },
-  { key: 'reg', n: registeredCount.value, label: '状态已登记', cap: '投标单位/状态', accent: 'green' },
+  {
+    key: 'total',
+    n: bids.state === 'master' ? masterTotal.value : '—',
+    label: '主表项目',
+    cap: bids.state === 'master' ? `更新于 ${bids.updated_at || '—'}` : '上传月计划后生成',
+    accent: 'cyan',
+  },
+  { key: 'open7', n: openings.value.length, label: '近 7 日开标', cap: bids.state === 'master' ? '主表实时计算' : '示例数据', accent: 'violet' },
+  { key: 'open1', n: tomorrowCount.value, label: '明日开标', cap: '09:00 推送提醒（M3）', accent: 'amber' },
+  { key: 'reg', n: registeredCount.value, label: '状态已登记', cap: '投标单位 / 已投·在投·放弃', accent: 'green' },
 ])
 
 const dotCls = { bid: 'cyan', silver: 'violet', guoxue: 'amber' }
-const statusCls = { 已投: 'st-done', 在投: 'st-doing', 放弃: 'st-give' }
-const fmtDay = (s) => s.slice(5)
+const modeChip = computed(() =>
+  bids.state === 'master'
+    ? { cls: 'ok', text: `主表 ${bids.rows.length} 项` }
+    : { cls: 'warn', text: bids.state === 'error' ? '后端离线 · 演示' : '演示数据' }
+)
 </script>
 
 <template>
@@ -54,7 +66,7 @@ const fmtDay = (s) => s.slice(5)
         <h1>{{ overview.label }}</h1>
         <p class="page-desc">{{ todayGreet }} · {{ todayDate }}，今日要务如下</p>
       </div>
-      <div class="stage-pill">M0 · 界面预览中</div>
+      <div class="stage-pill" :class="modeChip.cls">{{ modeChip.text }}</div>
     </div>
 
     <!-- 统计卡 -->
@@ -105,7 +117,9 @@ const fmtDay = (s) => s.slice(5)
             </span>
           </li>
         </ul>
-        <div v-else class="rm-empty">暂无开标安排</div>
+        <div v-else class="rm-empty">
+          {{ bids.state === 'master' ? '主表中暂无未来 7 日开标安排' : '暂无开标安排' }}
+        </div>
       </div>
     </div>
 
