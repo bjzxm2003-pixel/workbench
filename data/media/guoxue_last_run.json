@@ -1,0 +1,30 @@
+{
+  "last_run": "2026-09-08 12:28:24 UTC",
+  "date": "2026-09-08",
+  "candidates": 5,
+  "top3": [
+    {
+      "title": "儿媳装病三年，直到公公临终前拿出一个木盒，她打开后彻底崩溃",
+      "platform": "快手",
+      "type": "剧情反转",
+      "metric": "模拟点赞 2200000"
+    },
+    {
+      "title": "天道忌满，人道忌全：人生最好的状态是‘花未全开月未圆’",
+      "platform": "抖音",
+      "type": "口播金句",
+      "metric": "模拟点赞 1850000"
+    },
+    {
+      "title": "一个人越来越有钱的3个迹象，藏都藏不住",
+      "platform": "抖音",
+      "type": "口播金句",
+      "metric": "模拟点赞 1500000"
+    }
+  ],
+  "adapted_title": "低谷期，记住老子这句话，好运自来",
+  "report_file": "data/media/reports/guoxue_2026-09-08.md",
+  "push": {
+    "sent": true
+  }
+}

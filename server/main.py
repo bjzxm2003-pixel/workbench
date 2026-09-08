@@ -254,3 +254,50 @@ def silver_report(date: str):
     if not f.exists():
         raise HTTPException(status_code=404, detail=f"无 {date} 的银发康养日报")
     return {"date": date, "markdown": f.read_text(encoding="utf-8")}
+
+
+# ---------- M5：国学经典自媒体助手 ----------
+@app.get("/api/jobs/guoxue/status")
+def guoxue_status():
+    from pathlib import Path
+
+    from .config import DATA_DIR, load_media_keywords
+    from .llm import llm_configured
+
+    last = None
+    last_file = DATA_DIR / "media" / "guoxue_last_run.json"
+    if last_file.exists():
+        try:
+            last = json.loads(last_file.read_text(encoding="utf-8"))
+        except Exception:
+            last = None
+    return {
+        "sc": wechat.sc_configured(),
+        "llm": llm_configured(),
+        "keywords": load_media_keywords("guoxue"),
+        "schedule": "每日 16:00（北京）· GitHub Actions cron '0 8 * * *'",
+        "last_run": last,
+    }
+
+
+@app.post("/api/jobs/guoxue/run")
+def guoxue_run(payload: dict | None = None):
+    """立即生成国学爆款日报（AI 模拟选题 → 拆解 → 改编抖音脚本 + 可选推送）"""
+    from jobs.guoxue_media import run_guoxue
+
+    push = None
+    if isinstance(payload, dict) and "push" in payload:
+        push = bool(payload.get("push"))
+    return run_guoxue(push=push)
+
+
+@app.get("/api/jobs/guoxue/report")
+def guoxue_report(date: str):
+    from pathlib import Path
+
+    from .config import DATA_DIR
+
+    f = DATA_DIR / "media" / "reports" / f"guoxue_{date}.md"
+    if not f.exists():
+        raise HTTPException(status_code=404, detail=f"无 {date} 的国学爆款日报")
+    return {"date": date, "markdown": f.read_text(encoding="utf-8")}

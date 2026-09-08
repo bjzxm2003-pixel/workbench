@@ -71,7 +71,7 @@ export const domains = [
         schedule: '每日 16:00',
         trigger: 'auto',
         desc: '搜抖音/快手等“国学·易经·道德经·黄帝内经·论语·人生智慧”爆款短视频，取 3 条拆解（前3秒/脚本/成功要素），产出 1 分钟改编脚本。',
-        progress: 'M5 · 待开发',
+        progress: 'M5 · 已接入',
       },
     ],
   },

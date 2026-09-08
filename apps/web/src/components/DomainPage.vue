@@ -4,6 +4,7 @@ import BaseIcon from './BaseIcon.vue'
 import AssistantCard from './AssistantCard.vue'
 import BiddingPage from './BiddingPage.vue'
 import SilverPage from './SilverPage.vue'
+import GuoxuePage from './GuoxuePage.vue'
 import { keywordPresets } from '../data/modules'
 
 const props = defineProps({
@@ -15,7 +16,7 @@ const keywords = computed(() => keywordPresets[props.domain.id] || [])
 const stageNotes = {
   bid: 'M1/M2/M3 已接入 · 自动化日程就绪',
   silver: 'M4 已接入 · 每日 17:00',
-  guoxue: 'M0 外壳就绪 · M5 国学助手（待开发）',
+  guoxue: 'M5 已接入 · 每日 16:00',
 }
 </script>
 
@@ -45,7 +46,10 @@ const stageNotes = {
     <!-- 银发康养：M4 日报助手 -->
     <SilverPage v-else-if="domain.id === 'silver'" />
 
-    <!-- 国学自媒体：通用助手卡片（M5 接入前占位） -->
+    <!-- 国学自媒体：M5 日报助手 -->
+    <GuoxuePage v-else-if="domain.id === 'guoxue'" />
+
+    <!-- 预留通用占位 -->
     <template v-else>
       <div class="assistant-grid">
         <AssistantCard
