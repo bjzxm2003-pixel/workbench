@@ -12,6 +12,10 @@ const paths = {
   clock:
     '<circle cx="12" cy="12" r="8.2"/><path d="M12 7.4V12l3 2.2" />',
   upload: '<path d="M12 16V4.5"/><path d="m7.5 8.5 4.5-4 4.5 4"/><path d="M4.5 15.5v3a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-3"/>',
+  radar:
+    '<circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3.6v4.4"/><path d="M12 16v4.4"/><path d="M3.6 12H8"/><path d="M16 12h4.4"/>',
+  arrow: '<path d="M5 12h13"/><path d="m13 6 6 6-6 6"/>',
+  check: '<path d="m4.5 12.5 4.8 4.8L19.5 7" />',
 }
 </script>
 

@@ -1,10 +1,13 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { domains } from './data/modules'
+import { domains, overview } from './data/modules'
 import BaseIcon from './components/BaseIcon.vue'
+import OverviewPage from './components/OverviewPage.vue'
 import DomainPage from './components/DomainPage.vue'
 
-const active = ref('bid')
+// 导航顺序：今日总览置顶，随后三个业务域
+const navItems = [overview, ...domains]
+const active = ref('overview')
 const now = ref(new Date())
 
 let timer = null
@@ -19,7 +22,8 @@ const fmt = (t, opt) =>
 const clock = computed(() => fmt(now.value, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }))
 const date = computed(() => fmt(now.value, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short' }))
 
-const activeDomain = computed(() => domains.find((d) => d.id === active.value))
+const activeItem = computed(() => navItems.find((d) => d.id === active.value))
+const accentTxt = computed(() => `txt-${activeItem.value?.accent || 'cyan'}`)
 </script>
 
 <template>
@@ -35,9 +39,9 @@ const activeDomain = computed(() => domains.find((d) => d.id === active.value))
       </div>
 
       <nav class="nav">
-        <div class="nav-caption">BUSINESS&nbsp;DOMAINS</div>
+        <div class="nav-caption">NAVIGATION</div>
         <button
-          v-for="d in domains"
+          v-for="d in navItems"
           :key="d.id"
           class="nav-item"
           :class="{ active: active === d.id, [`accent-${d.accent}`]: true }"
@@ -48,7 +52,7 @@ const activeDomain = computed(() => domains.find((d) => d.id === active.value))
             <span class="nav-label">{{ d.label }}</span>
             <span class="nav-en">{{ d.en }}</span>
           </span>
-          <span class="nav-count">{{ d.assistants.length }}</span>
+          <span v-if="d.assistants" class="nav-count">{{ d.assistants.length }}</span>
         </button>
       </nav>
 
@@ -66,7 +70,7 @@ const activeDomain = computed(() => domains.find((d) => d.id === active.value))
         <div class="crumb">
           <span class="crumb-root">个人工作台</span>
           <span class="crumb-sep">/</span>
-          <span class="crumb-cur" :class="`txt-${activeDomain.accent}`">{{ activeDomain.label }}</span>
+          <span class="crumb-cur" :class="accentTxt">{{ activeItem?.label }}</span>
         </div>
         <div class="top-right">
           <div class="status"><i class="dot"></i>系统在线</div>
@@ -78,7 +82,8 @@ const activeDomain = computed(() => domains.find((d) => d.id === active.value))
       </header>
 
       <main class="content">
-        <DomainPage :domain="activeDomain" />
+        <OverviewPage v-if="active === 'overview'" @open="active = $event" />
+        <DomainPage v-else :domain="activeItem" />
       </main>
     </div>
   </div>

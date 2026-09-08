@@ -77,9 +77,37 @@ export const domains = [
   },
 ]
 
+// 今日总览（导航最上方的首页，非业务域）
+export const overview = {
+  id: 'overview',
+  label: '今日总览',
+  en: 'TODAY OVERVIEW',
+  icon: 'radar',
+  accent: 'cyan',
+  desc: '今日自动化任务与开标数据一览',
+}
+
 // 关键词配置（占位初值，M1 起在界面中可编辑并持久化）
 export const keywordPresets = {
   bid: ['EPC', 'PC', '施工', '风电', '煤电', '光伏', '电缆'],
   silver: ['银发经济', '康养', '养老产业'],
   guoxue: ['国学', '易经', '道德经', '黄帝内经', '论语', '人生智慧'],
+}
+
+// 展平全部助手（含所属业务域信息），供“今日总览”任务时间轴使用
+export function allTasks() {
+  return domains.flatMap((d) =>
+    d.assistants.map((a) => ({
+      ...a,
+      domainId: d.id,
+      domainLabel: d.label,
+      accent: d.accent,
+    }))
+  )
+}
+
+// 从调度文案提取分钟数用于排序（手动任务排在最后）
+export function scheduleMinutes(schedule) {
+  const m = schedule.match(/(\d{1,2}):(\d{2})/)
+  return m ? parseInt(m[1], 10) * 60 + parseInt(m[2], 10) : 24 * 60 + 1
 }
