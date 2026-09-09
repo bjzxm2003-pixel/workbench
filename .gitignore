@@ -26,3 +26,7 @@ npm-debug.log*
 # 生成的导出物与本地样例
 data/bidding/exports/
 data/samples/
+
+# 视频成片产物（体积大，不入库）
+data/media/videos/
+data/media/.tmp_render/

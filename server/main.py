@@ -301,3 +301,58 @@ def guoxue_report(date: str):
     if not f.exists():
         raise HTTPException(status_code=404, detail=f"无 {date} 的国学爆款日报")
     return {"date": date, "markdown": f.read_text(encoding="utf-8")}
+
+
+# ---------- M5.1：国学短视频一键成片 ----------
+@app.post("/api/jobs/guoxue/video")
+def guoxue_video(payload: dict | None = None):
+    """按当日分镜表成片：配音+画面+字幕+音乐 → MP4（本机渲染，可能需要 1-2 分钟）"""
+    from jobs.video_render import render
+
+    date = ((payload or {}).get("date") or "").strip()
+    if not date:
+        from pathlib import Path
+
+        from .config import DATA_DIR
+
+        last_file = DATA_DIR / "media" / "guoxue_last_run.json"
+        if not last_file.exists():
+            raise HTTPException(status_code=404, detail="尚无国学日报，请先生成")
+        try:
+            date = json.loads(last_file.read_text(encoding="utf-8")).get("date", "")
+        except Exception:
+            pass
+    if not date:
+        raise HTTPException(status_code=400, detail="缺少 date")
+    try:
+        return render(date)
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"成片失败：{e}")
+
+
+@app.get("/api/jobs/guoxue/video-file")
+def guoxue_video_file(date: str, kind: str = "mp4"):
+    """下载成片产物：kind=mp4|cover|srt"""
+    from pathlib import Path
+
+    from .config import DATA_DIR
+
+    names = {
+        "mp4": f"guoxue_{date}.mp4",
+        "cover": f"guoxue_{date}_cover.png",
+        "srt": f"guoxue_{date}.srt",
+    }
+    name = names.get(kind)
+    if not name:
+        raise HTTPException(status_code=400, detail="kind 仅支持 mp4/cover/srt")
+    path = DATA_DIR / "media" / "videos" / name
+    if not path.exists():
+        raise HTTPException(status_code=404, detail=f"成片产物不存在：{name}（先调用 /api/jobs/guoxue/video）")
+    media = {
+        "mp4": "video/mp4",
+        "cover": "image/png",
+        "srt": "application/x-subrip; charset=utf-8",
+    }[kind]
+    return FileResponse(path, media_type=media, filename=name)

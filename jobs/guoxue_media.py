@@ -258,6 +258,11 @@ def run_guoxue(date_str: str | None = None, push: bool | None = None) -> dict:
     report = build_report(d, cands, top3, analyses, adapted, kw_text)
     report_rel = f"data/media/reports/guoxue_{d}.md"
     (REPORT_DIR / f"guoxue_{d}.md").write_text(report, encoding="utf-8")
+    # 结构化产物：供 jobs/video_render.py 一键成片使用
+    (REPORT_DIR / f"guoxue_{d}.json").write_text(
+        json.dumps({"date": d, "keywords": keywords, "top3": top3, "adapted": adapted}, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
 
     push_result = None
     if push or (push is None and wechat.sc_configured()):
