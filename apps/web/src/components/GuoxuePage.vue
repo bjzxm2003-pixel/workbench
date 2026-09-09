@@ -136,7 +136,7 @@ onMounted(loadStatus)
           <div class="rm-kicker">ONE-CLICK VIDEO · M5.1</div>
           <h3 class="rm-title">🎬 一键成片（配音 + 画面 + 字幕）</h3>
         </div>
-        <span class="rm-demo">目标 ≤60s · 竖屏 1080x1920 · edge-tts 男声</span>
+        <span class="rm-demo">水墨风 · 竖屏 1080x1920 · Yunjian 磁性男声 · 按分镜时长</span>
       </div>
       <div class="daily-body">
         <div class="up-actions">
@@ -152,7 +152,7 @@ onMounted(loadStatus)
           <a class="btn-ghost as-link" :href="'/api/jobs/guoxue/video-file?date=' + videoInfo.date + '&kind=cover'" download>⬇ 封面 PNG</a>
           <a class="btn-ghost as-link" :href="'/api/jobs/guoxue/video-file?date=' + videoInfo.date + '&kind=srt'" download>⬇ 字幕 SRT</a>
         </div>
-        <p class="modebar-hint" style="margin-top:8px">提示：想要背景音乐，把 mp3 放到 <b>data/media/bgm.mp3</b> 再成片；想换音色点开 Jobs 页改 voice。</p>
+        <p class="modebar-hint" style="margin-top:8px">提示：想要背景音乐，把 mp3 放到 <b>data/media/bgm.mp3</b> 再点成片即可自动混音；音色/版式可继续定制。</p>
       </div>
     </section>
   </div>

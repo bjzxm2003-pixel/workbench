@@ -1,11 +1,14 @@
-"""🎬 国学短视频一键成片：分镜表 → 画面 + 配音 + 字幕 + 音乐 → MP4（≤60s）
+"""🎬 国学短视频一键成片 v2（水墨风 · 磁性男声 · 按分镜时长）
 
-读取 data/media/reports/guoxue_<date>.json，为每镜生成 1080x1920 竖屏画面与
-edge-tts 中文配音，自动按预算压缩语句，合成拼接输出 MP4 + 封面 PNG + .srt 字幕。
+读取 data/media/reports/guoxue_<date>.json：
+  - 字幕：去标点、自适应字号完整换行显示（不截断）
+  - 画面：宣纸水墨风（米色底 + 远山淡墨 + 朱印 + 竖排大标题）
+  - 配音：edge-tts zh-CN-YunjianNeural（磁性男声，rate +2% / pitch -4Hz）
+  - 时长：每镜 = max(配音时长, 分镜窗跨度)，不限总长；语速更快、停顿更短
+输出 1080x1920 竖屏 MP4 + 封面 PNG + .srt
 
-用法：
-  python -m jobs.video_render --date 2026-09-09
-      [--voice zh-CN-YunxiNeural] [--bgm 路径] [--target 56] [--out 输出目录]
+用法：python -m jobs.video_render --date 2026-09-09
+      [--voice zh-CN-YunjianNeural] [--bgm 路径] [--out 输出目录]
 """
 from __future__ import annotations
 
@@ -28,15 +31,19 @@ REPORT_DIR = DATA_DIR / "media" / "reports"
 VIDEO_DIR = DATA_DIR / "media" / "videos"
 TMP_DIR = DATA_DIR / "media" / ".tmp_render"
 
+# 字体候选：楷体优先（书法感），其次宋体（古籍感）
 FONT_CANDIDATES = [
+    "/System/Library/Fonts/Supplemental/Kaiti.ttc",
+    "/System/Library/Fonts/Supplemental/STKaiti.ttc",
+    "/System/Library/Fonts/Songti.ttc",
     "/System/Library/Fonts/STHeiti Medium.ttc",
-    "/System/Library/Fonts/STHeiti Light.ttc",
     "/System/Library/Fonts/Hiragino Sans GB.ttc",
-    "/System/Library/Fonts/PingFang.ttc",
 ]
-DEFAULT_VOICE = "zh-CN-YunxiNeural"
-MIN_SEG, MAX_SEG = 2.4, 9.0
+DEFAULT_VOICE = "zh-CN-YunjianNeural"  # 云健：磁性男声
+RATE, PITCH = "+2%", "-4Hz"
+MIN_SEG, MAX_SEG = 1.6, 16.0
 W, H = 1080, 1920
+PUNCT = "。，、！？；：“”‘’《》〈〉·…—～（）!?.,;:()\"'"
 
 
 def _font(size: int):
@@ -59,11 +66,10 @@ def _load_artifact(date: str) -> dict:
 
 
 def tts_segment(text: str, out: Path, voice: str) -> float:
-    """生成配音 mp3，返回带停顿的实际时长（秒）。"""
     import edge_tts
 
     async def _go():
-        await edge_tts.Communicate(text, voice, rate="-6%").save(str(out))
+        await edge_tts.Communicate(text, voice, rate=RATE, pitch=PITCH).save(str(out))
 
     asyncio.run(_go())
     r = subprocess.run(
@@ -72,64 +78,129 @@ def tts_segment(text: str, out: Path, voice: str) -> float:
     )
     m = re.search(r"time=(\d+):(\d+):([\d.]+)", r.stderr)
     if m:
-        return max(int(m.group(1)) * 3600 + int(m.group(2)) * 60 + float(m.group(3)) + 0.35, MIN_SEG)
-    return 5.0
+        return max(int(m.group(1)) * 3600 + int(m.group(2)) * 60 + float(m.group(3)), MIN_SEG)
+    return 4.0
 
 
-def _wrap(text: str, limit: int = 11) -> list[str]:
+def clean_caption(text: str) -> str:
+    """去掉字幕标点与空白（保留汉字/数字/字母）。"""
+    return re.sub(rf"[{re.escape(PUNCT)}\s]+", "", text)
+
+
+def _clean_lines(text: str, max_chars_per_line: int = 13) -> list[str]:
+    t = clean_caption(text)
+    if not t:
+        return ["……"]
     lines = []
-    for raw in text.split("\n"):
-        raw = raw.strip()
-        while len(raw) > limit:
-            lines.append(raw[:limit])
-            raw = raw[limit:]
-        if raw:
-            lines.append(raw)
+    while len(t) > max_chars_per_line:
+        lines.append(t[:max_chars_per_line])
+        t = t[max_chars_per_line:]
+    if t:
+        lines.append(t)
     return lines
 
 
-def draw_scene(idx: int, total: int, lines: list[str], out: Path, *, cover: bool = False, title: str = ""):
+def _planned_span(label: str) -> float | None:
+    """从分镜窗 '8-15s' 解析相对秒数。"""
+    m = re.search(r"(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)", label or "")
+    if m:
+        span = float(m.group(2)) - float(m.group(1))
+        if 1.0 <= span <= 14.0:
+            return span
+    return None
+
+
+# ---------------- 水墨画帧 ----------------
+def _ink_canvas():
     from PIL import Image, ImageDraw
 
-    img = Image.new("RGB", (W, H), "#070b16")
+    # 宣纸底（米白带轻微颗粒明暗）
+    img = Image.new("RGB", (W, H), "#efe9dc")
+    px = img.load()
+    for y in range(0, H, 4):
+        for x in range(0, W, 4):
+            v = ((x * 31 + y * 17) % 13) - 6
+            c0, c1, c2 = px[x, y]
+            px[x, y] = (max(0, min(255, c0 + v)), max(0, min(255, c1 + v)), max(0, min(255, c2 + v)))
     dr = ImageDraw.Draw(img)
-    top, bot = (12, 18, 36), (4, 6, 13)
-    for y in range(H):
-        k = y / H
-        dr.line([(0, y), (W, y)], fill=tuple(int(top[i] + (bot[i] - top[i]) * k) for i in range(3)))
-    glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    gd = ImageDraw.Draw(glow)
-    for r in range(700, 320, -12):
-        gd.ellipse((W // 2 - r, 430 - r, W // 2 + r, 430 + r), fill=(120, 190, 255, max(2, int(20 * (r - 320) / 380))))
-    img.paste(glow, (0, 0), glow)
-    p = 60
-    for x0, y0, x1, y1 in [
-        (p, p, p + 90, p + 6), (p, p, p + 6, p + 90),
-        (W - p - 90, p, W - p, p + 6), (W - p - 6, p, W - p, p + 90),
-        (p, H - p - 6, p + 90, H - p), (p, H - p - 90, p + 6, H - p),
-        (W - p - 90, H - p - 6, W - p, H - p), (W - p - 6, H - p - 90, W - p, H - p),
-    ]:
-        dr.rectangle([x0, y0, x1, y1], fill=(224, 240, 255))
-    f_lab = _font(34)
-    dr.text((W // 2, 210), "国学经典 · 每日一悟", font=f_lab, fill=(150, 190, 255), anchor="mm")
-    y = 620 if (cover or idx == 1) else 700
-    if title:
-        f_t = _font(62)
-        for tl in _wrap(title, 14)[:3]:
-            dr.text((W // 2, y), tl, font=f_t, fill=(255, 224, 176), anchor="mm")
-            y += 88
-        y += 66
-    f_body = _font(72)
-    f_sub = _font(60)
-    for i, ln in enumerate(lines[:7]):
-        f = f_body if (i == 0 and len(lines) > 1) else f_sub
-        c = (255, 206, 120) if (i == 0 and len(lines) > 1) else (236, 243, 255)
-        dr.text((W // 2, y), ln, font=f, fill=c, anchor="mm")
-        y += 102
-    dr.text((W // 2, H - 150), f"📜 国学经典 · {idx}/{total}", font=_font(30), fill=(110, 140, 200), anchor="mm")
+    # 右侧纵向淡墨 + 底部远山
+    shade = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    sd = ImageDraw.Draw(shade)
+    # 墨晕山（右侧两座 + 底部一排）
+    def mountains(color, alpha, pts):
+        sd.polygon(pts, fill=(*color, alpha))
+
+    mountains((70, 75, 82), 40, [(880, 800), (1050, 620), (1150, 900)])
+    mountains((90, 95, 100), 55, [(700, 1050), (1000, 720), (1200, 1100)])
+    mountains((40, 45, 52), 90, [(60, 1750), (520, 1320), (1050, 1750)])
+    mountains((20, 22, 28), 70, [(760, 1920), (1050, 1460), (1250, 1920)])
+    img.paste(shade, (0, 0), shade)
+    dr = ImageDraw.Draw(img)
+    return img, dr
+
+
+def _fit_font(dr, text, start, max_w, max_h_lines, line_gap, per_line=13):
+    """逐级缩小字号直到整段可在区域内放下，保证字幕完整。"""
+    size = start
+    from PIL import ImageFont
+
+    while size > 28:
+        f = _font(size)
+        lines = _clean_lines(text, per_line)
+        widths = [dr.textlength(l, font=f) for l in lines]
+        used = sum(
+            dr.textbbox((0, 0), l, font=f)[3] - dr.textbbox((0, 0), l, font=f)[1] for l in lines
+        ) + line_gap * (len(lines) - 1)
+        if max(widths) <= max_w and used <= max_h_lines and len(lines) <= max_h_lines // (size // 8 + 1) + 2:
+            return f, lines
+        size -= 6
+        per_line = max(8, per_line - 1)
+    return _font(30), _clean_lines(text, 8)[:6]
+
+
+def draw_scene(idx: int, total: int, text: str, out: Path, *, cover: bool = False, title: str = ""):
+    from PIL import ImageDraw
+
+    img, dr = _ink_canvas()
+    # 顶部竖排小标签
+    lab = _font(40)
+    dr.text((W - 190, 260), "国学经典", font=lab, fill=(120, 30, 30), anchor="mm")
+    # 太阳/红日
+    from PIL import Image
+
+    sun = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    sd = ImageDraw.Draw(sun)
+    sd.ellipse((W - 330, 120, W - 160, 290), fill=(198, 78, 66, 130))
+    img.paste(sun, (0, 0), sun)
+    # 正文区
+    dr = ImageDraw.Draw(img)
+    center_x = W // 2 - 60  # 右侧留出竖排标签空间
+    top = 560 if cover else 620
+    if title and (cover or idx == 1):
+        tf, tl = _fit_font(dr, clean_caption(title), 96, 760, 400, 30, 12)
+        yy = top
+        for l in tl:
+            dr.text((center_x, yy), l, font=tf, fill=(30, 26, 20), anchor="mm")
+            yy += 112
+        top = yy + 90
+    f, lines = _fit_font(dr, text, 92, 780, H - top - 420, 40, 13)
+    yy = max(top + 40, H // 2 - (len(lines) * 150) // 2)
+    for l in lines:
+        dr.text((center_x, yy), l, font=f, fill=(34, 30, 24), anchor="mm")
+        yy += 150
+    # 朱印
+    stamp = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    std = ImageDraw.Draw(stamp)
+    sx0, sy0 = center_x - 40, H - 330
+    std.rectangle([sx0, sy0, sx0 + 200, sy0 + 200], outline=(196, 60, 50, 255), width=10)
+    std.text((sx0 + 100, sy0 + 100), "悟", font=_font(130), fill=(196, 60, 50, 235), anchor="mm")
+    img.paste(stamp, (0, 0), stamp)
+    # 页码
+    dr.text((W - 190, H - 240), f"{idx:02d}/{total:02d}", font=_font(44), fill=(120, 60, 50), anchor="mm")
     img.save(out)
 
 
+# ---------------- 主流程 ----------------
 def _prep_scenes(adapted: dict) -> list[dict]:
     sb = adapted.get("storyboard") or []
     if sb:
@@ -142,18 +213,8 @@ def _prep_scenes(adapted: dict) -> list[dict]:
     return [{"label": f"第{i}镜", "text": "".join(p.split())} for i, p in enumerate([x for x in parts if x.strip()], 1)]
 
 
-def _trim_to_sentence(text: str, keep: int) -> str:
-    """从尾部向 keep 字符处回退到句末标点。"""
-    head = text[:keep]
-    for ch in "。！？；":
-        i = head.rfind(ch)
-        if i > keep // 2:
-            return text[: i + 1]
-    return head
-
-
 def render(date: str, voice: str = DEFAULT_VOICE, bgm: str | None = None,
-           target: float = 56.0, out_dir: Path | None = None) -> dict:
+           out_dir: Path | None = None) -> dict:
     artifact = _load_artifact(date)
     adapted = artifact.get("adapted", {})
     title = (adapted.get("title") or "国学经典").strip()
@@ -169,47 +230,26 @@ def render(date: str, voice: str = DEFAULT_VOICE, bgm: str | None = None,
             f.unlink()
     exe = imageio_ffmpeg.get_ffmpeg_exe()
 
-    # ---- 预算内规划：配音 + 必要时压缩/删尾镜 ----
-    for scene in scenes:
-        scene["text"] = scene["text"][:110]
-    plan: list[dict] = []
-    total = 0.0
-    for _ in range(18):
-        if not scenes:
-            break
-        recs = []
-        subtotal = 0.0
-        for s in scenes:
-            key = s["text"]
-            audio = TMP_DIR / f"a{abs(hash(key)) % 99999:05d}.mp3"
-            if not audio.exists():
-                audio.unlink(missing_ok=True)
-                dur = tts_segment(key, audio, voice)
-            else:
-                dur = max(min(len(key) / 4.1 + 0.4, MAX_SEG), MIN_SEG)
-            dur = min(dur, MAX_SEG)
-            recs.append({"scene": s, "audio": audio, "dur": dur})
-            subtotal += dur
-        total = subtotal
-        if total <= target or len(scenes) <= 1:
-            plan = recs
-            break
-        longest = max(scenes, key=lambda s: len(s["text"]))
-        if len(longest["text"]) > 26:
-            longest["text"] = _trim_to_sentence(longest["text"], len(longest["text"]) - 16)
-        else:
-            scenes.pop()
+    plan = []
+    for i, sc in enumerate(scenes, 1):
+        text = clean_caption(sc["text"])[:150]
+        if not text:
+            continue
+        audio = TMP_DIR / f"a{i:03d}.mp3"
+        audio_dur = tts_segment(text, audio, voice)
+        planned = _planned_span(sc.get("label")) or 0.0
+        dur = min(max(planned, audio_dur), MAX_SEG)
+        plan.append({"i": i, "text": text, "audio": audio, "dur": dur})
     if not plan:
         raise RuntimeError("成片规划失败（无可用分镜）")
-    print(f"[render] 规划 {len(plan)} 镜 · 预计 {total:.1f}s（目标 ≤{target}s）")
+    total = sum(p["dur"] for p in plan)
+    print(f"[render] 规划 {len(plan)} 镜 · 预计 {total:.1f}s（配音口播约 {sum(min(p['dur'], 8) for p in plan):.0f}s）")
 
-    # ---- 逐镜画面 + 配音编码 ----
     seg_files = []
-    for i, r in enumerate(plan, 1):
-        seg = r["scene"]
-        png = TMP_DIR / f"p{i:02d}.png"
-        draw_scene(i, len(plan), _wrap(seg["text"], 11), png, title=title if i == 1 else "")
-        seg_mp4 = TMP_DIR / f"s{i:02d}.mp4"
+    for r in plan:
+        png = TMP_DIR / f"p{r['i']:03d}.png"
+        draw_scene(r["i"], len(plan), r["text"], png, title=title if r["i"] == 1 else "")
+        seg_mp4 = TMP_DIR / f"s{r['i']:03d}.mp4"
         rr = subprocess.run(
             [exe, "-y", "-loop", "1", "-i", str(png), "-i", str(r["audio"]),
              "-t", f"{r['dur']:.2f}", "-r", "25",
@@ -219,7 +259,7 @@ def render(date: str, voice: str = DEFAULT_VOICE, bgm: str | None = None,
             capture_output=True, text=True,
         )
         if rr.returncode != 0:
-            raise RuntimeError(f"片段 {i} 合成失败: {rr.stderr[-400:]}")
+            raise RuntimeError(f"片段 {r['i']} 合成失败: {rr.stderr[-400:]}")
         seg_files.append(str(seg_mp4))
 
     list_file = TMP_DIR / "list.txt"
@@ -234,9 +274,9 @@ def render(date: str, voice: str = DEFAULT_VOICE, bgm: str | None = None,
     if rr.returncode != 0:
         raise RuntimeError(f"拼接失败: {rr.stderr[-400:]}")
 
+    hook = clean_caption(adapted.get("hook") or "")
     cover = out_dir / f"guoxue_{date}_cover.png"
-    hook = (adapted.get("hook") or "").strip()
-    draw_scene(0, len(plan), _wrap(hook or "点击播放，读懂老祖宗的智慧", 10), cover, cover=True, title=title)
+    draw_scene(0, len(plan), hook or "点击播放 读懂老祖宗的智慧", cover, cover=True, title=title)
 
     bgm_path = bgm or (DATA_DIR / "media" / "bgm.mp3")
     final = out_dir / f"guoxue_{date}.mp4"
@@ -244,7 +284,7 @@ def render(date: str, voice: str = DEFAULT_VOICE, bgm: str | None = None,
         rr = subprocess.run(
             [exe, "-y", "-i", str(raw), "-stream_loop", "-1", "-i", str(bgm_path),
              "-filter_complex",
-             "[0:a]volume=1.0[vo];[1:a]volume=0.15,afade=t=out:st=2:d=3[bg];[vo][bg]amix=inputs=2:duration=first:dropout_transition=3[a]",
+             "[0:a]volume=1.0[vo];[1:a]volume=0.14,afade=t=out:st=2:d=2[bg];[vo][bg]amix=inputs=2:duration=first:dropout_transition=2[a]",
              "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", str(final)],
             capture_output=True, text=True,
         )
@@ -254,11 +294,10 @@ def render(date: str, voice: str = DEFAULT_VOICE, bgm: str | None = None,
         shutil.copy(raw, final)
     raw.unlink(missing_ok=True)
 
-    # ---- 字幕 srt ----
     srt = out_dir / f"guoxue_{date}.srt"
     t0 = 0.0
     with srt.open("w", encoding="utf-8") as f:
-        for i, r in enumerate(plan, 1):
+        for r in plan:
             a, b = t0, t0 + r["dur"]
 
             def ts(x):
@@ -266,7 +305,7 @@ def render(date: str, voice: str = DEFAULT_VOICE, bgm: str | None = None,
                 ss = x % 60
                 return f"00:{mm:02d}:{ss:06.3f}".replace(".", ",")
 
-            f.write(f"{i}\n{ts(a)} --> {ts(b)}\n{r['scene']['text']}\n\n")
+            f.write(f"{r['i']}\n{ts(a)} --> {ts(b)}\n{r['text']}\n\n")
             t0 = b
 
     return {
@@ -277,17 +316,16 @@ def render(date: str, voice: str = DEFAULT_VOICE, bgm: str | None = None,
         "srt": str(srt.relative_to(DATA_DIR)),
         "segments": len(plan),
         "duration_s": round(t0, 2),
-        "target_s": target,
+        "voice": voice,
         "bytes": final.stat().st_size,
     }
 
 
 def main():
-    ap = argparse.ArgumentParser(description="国学短视频一键成片")
+    ap = argparse.ArgumentParser(description="国学短视频一键成片（水墨风）")
     ap.add_argument("--date", default=None)
     ap.add_argument("--voice", default=DEFAULT_VOICE)
     ap.add_argument("--bgm", default=None)
-    ap.add_argument("--target", type=float, default=56.0)
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
     if not args.date:
@@ -297,7 +335,7 @@ def main():
             sys.exit(1)
         args.date = Path(files[-1]).stem.replace("guoxue_", "")
     out_dir = Path(args.out) if args.out else None
-    print(json.dumps(render(args.date, voice=args.voice, bgm=args.bgm, target=args.target, out_dir=out_dir), ensure_ascii=False, indent=2))
+    print(json.dumps(render(args.date, voice=args.voice, bgm=args.bgm, out_dir=out_dir), ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
