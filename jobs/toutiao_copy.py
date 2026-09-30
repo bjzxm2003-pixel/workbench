@@ -166,6 +166,19 @@ def fit_title(title: str, fallback: str = "") -> str:
     return t.strip()
 
 
+def title_ok(title: str) -> bool:
+    """标题是否落在 8-20 字（平台口径）内。"""
+    return TITLE_MIN <= title_width(title) <= TITLE_MAX
+
+
+# 标题需人工优化的条目（策略 B：保留原样 + 标记，只在报告里列待办）
+REVIEW: list[dict] = []
+
+
+def review_reason(kind: str, title: str) -> str:
+    return f"{kind}标题 {title_width(title)} 字，不在 {TITLE_MIN}-{TITLE_MAX} 字内"
+
+
 # ---------------- 一、真实热榜 ----------------
 def fetch_hot() -> list[dict]:
     """今日头条热榜：真实热度值（HotValue），非互动量。"""
@@ -395,9 +408,10 @@ def extract_topics(tracks: list[str], evidence_by_track: dict, n: int = 3) -> di
             title = str(t.get("title", "")).strip()
             if not title:
                 continue
+            fitted = fit_title(title)
             topics.append(
                 {
-                    "title": fit_title(title),
+                    "title": fitted,
                     "core": str(t.get("core", "")).strip(),
                     "why": str(t.get("why", "")).strip(),
                     "angle": str(t.get("angle", "")).strip(),
@@ -482,6 +496,32 @@ def build_report(
 ) -> str:
     recent = recent_window(articles)
     run_at = run_at or datetime.now(BJ_TZ).strftime("%Y-%m-%d %H:%M")
+    # 从最终数据登记「标题待优化」条目：单一来源，缓存重渲染与真实运行结果一致
+    REVIEW.clear()
+    for _track, _tps in (topics or {}).items():
+        for _t in _tps or []:
+            if not title_ok(str(_t.get("title", ""))):
+                REVIEW.append(
+                    {
+                        "kind": "主题",
+                        "track": _track,
+                        "title": _t.get("title", ""),
+                        "width": title_width(_t.get("title", "")),
+                        "reason": review_reason("主题", str(_t.get("title", ""))),
+                    }
+                )
+    for _track, _arts in (articles_out or {}).items():
+        for _a in _arts or []:
+            if not title_ok(str(_a.get("title", ""))):
+                REVIEW.append(
+                    {
+                        "kind": "文案",
+                        "track": _track,
+                        "title": _a.get("title", ""),
+                        "width": title_width(_a.get("title", "")),
+                        "reason": review_reason("文案", str(_a.get("title", ""))),
+                    }
+                )
     L = [
         f"# 今日头条文案包｜国学 × 银发康养（{date_str}）",
         "",
@@ -557,9 +597,10 @@ def build_report(
         if not tps:
             L += ["> ⚠️ 本次未能提炼出主题（LLM 调用失败），请查看运行日志。", ""]
         for i, t in enumerate(tps, 1):
+            mark = " ⚠️ **待优化**" if not title_ok(t["title"]) else ""
             L += [
                 f"### 主题 {i}",
-                f"- **标题（{len(t['title'])}字）**：{t['title']}",
+                f"- **标题（{title_width(t['title'])}字）**：{t['title']}{mark}",
                 f"- **核心思想**：{t['core']}",
                 f"- **爆款理由**：{t['why']}",
                 f"- **建议切入角度**：{t['angle']}",
@@ -574,18 +615,39 @@ def build_report(
         if not arts:
             L += ["> ⚠️ 本次未能生成文案（LLM 调用失败），请查看运行日志。", ""]
         for i, a in enumerate(arts, 1):
-            L += [f"#### 文案 {i}｜{a['title']}", "", a["body"], "", "---", ""]
+            mark = " ⚠️ **标题待优化**" if not title_ok(a["title"]) else ""
+            L += [f"#### 文案 {i}｜{a['title']}{mark}", "", a["body"], "", "---", ""]
 
+    num = 4
+    if REVIEW:
+        L += [
+            f"## 四、待人工优化清单",
+            "",
+            f"> 以下 {len(REVIEW)} 条标题未落在 {TITLE_MIN}-{TITLE_MAX} 字区间（平台字数口径），**已按原样保留**，"
+            "发布前请手动改写。正文内容不受影响，无需重新生成。",
+            "",
+            "| 类型 | 赛道 | 标题原文 | 实际字数 | 原因 |",
+            "|---|---|---|---|---|",
+        ]
+        L += [
+            f"| {r['kind']} | {TRACKS[r['track']]['label']} | {r['title']} | {r['width']} | {r['reason']} |"
+            for r in REVIEW
+        ]
+        L.append("")
+        num = 5
+
+    _cn = {4: "四", 5: "五"}[num]
     L += [
-        "## 四、发布前检查清单",
+        f"## {_cn}、发布前检查清单",
         "",
         "1. 文中是否出现任何互动量数字？（出现即删）",
         "2. 健康类是否保留文末就医提示？",
         "3. 是否出现养老投资/加盟/理财/保健品囤货引导？（出现即删）",
         "4. 标题是否有一句能让人「想反驳」或「想代入」？",
-        "",
-        f"*本文件由「今日头条文案助手」生成于 {run_at}（北京）。*",
     ]
+    if REVIEW:
+        L.append(f"5. 上方「待人工优化清单」中的标题是否已改写为 {TITLE_MIN}-{TITLE_MAX} 字？")
+    L += ["", f"*本文件由「今日头条文案助手」生成于 {run_at}（北京）。*"]
     return "\n".join(L)
 
 
@@ -717,6 +779,9 @@ def run_toutiao(date_str: str | None = None, push: bool | None = None, from_cach
             digest_md(d, topics, articles_out, report_rel),
         )
 
+    if REVIEW:
+        print(f"[info] {len(REVIEW)} 条标题待人工优化（已写入报告「待人工优化清单」）", file=sys.stderr)
+
     result = {
         "date": d,
         "hot_hits": len(hot_hits),
@@ -729,6 +794,8 @@ def run_toutiao(date_str: str | None = None, push: bool | None = None, from_cach
         "push": push_result,
         "blocked": len(BLOCKED),
         "blocked_items": BLOCKED,
+        "needs_review": len(REVIEW),
+        "needs_review_items": REVIEW,
         "note": "本任务不输出互动量：平台不公开",
     }
     _save_json(

@@ -37,6 +37,15 @@ python -m jobs.toutiao_copy   [--date YYYY-MM-DD] [--no-push|--push]
 - 设置环境变量 `TOUTIAO_SEARCH_API`（SearchApi / Tavily 风格，返回 `organic_results[].link`）
 - 或在 `data/media/toutiao_candidates.txt` 每行写一个头条文章链接，任务会逐个核实标题与发布时间
 
+**标题字数规范（8-20 字，平台口径：CJK/全角按 1、ASCII 按 0.5）**：
+`fit_title()` 负责超长标题截断与成稿标题回退；**过短标题不丢弃、不改写**，而是：
+- 在主题/文案处内联标注 `⚠️ 待优化`；
+- 集中写入报告「待人工优化清单」（类型/赛道/标题原文/实际字数/原因）；
+- 计入运行记录 `needs_review` 与 `needs_review_items`。
+
+清单为空时该节自动省略，报告节号会相应顺延（不会出现跳号）。
+这样模型偶发产出过短标题时，其余内容照常可用，人工只需按清单改写标题、无需重新生成正文。
+
 **局限**：头条搜索接口 `/api/search/content/` 对无登录请求返回 `count: 0`，故文章级证据需靠上述两种方式补入；
 热榜每日只覆盖社会热点，国学/康养并非每日上榜，数据不足时报告会显式给出局限说明。
 
