@@ -1,12 +1,13 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { domains, overview } from './data/modules'
+import { domains, overview, radar } from './data/modules'
 import BaseIcon from './components/BaseIcon.vue'
 import OverviewPage from './components/OverviewPage.vue'
+import RadarPage from './components/RadarPage.vue'
 import DomainPage from './components/DomainPage.vue'
 
-// 导航顺序：今日总览置顶，随后三个业务域
-const navItems = [overview, ...domains]
+// 导航顺序：今日总览置顶，随后热点雷达，再三个业务域
+const navItems = [overview, radar, ...domains]
 const active = ref('overview')
 const now = ref(new Date())
 
@@ -83,6 +84,7 @@ const accentTxt = computed(() => `txt-${activeItem.value?.accent || 'cyan'}`)
 
       <main class="content">
         <OverviewPage v-if="active === 'overview'" @open="active = $event" />
+        <RadarPage v-else-if="active === 'radar'" />
         <DomainPage v-else :domain="activeItem" />
       </main>
     </div>

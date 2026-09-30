@@ -5,6 +5,8 @@ from datetime import datetime
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import FileResponse
+import os
+from pathlib import Path
 
 from . import parser, storage, wechat
 from .config import load_keywords
@@ -301,3 +303,28 @@ def guoxue_report(date: str):
     if not f.exists():
         raise HTTPException(status_code=404, detail=f"无 {date} 的国学爆款日报")
     return {"date": date, "markdown": f.read_text(encoding="utf-8")}
+
+
+# ---------- 热点雷达（借 Easel 热点雷达，读 智能体工作台 content.json 的 topics.radar） ----------
+RADAR_STORE = Path(
+    os.path.expanduser("~/.workbuddy/data/智能体工作台/content.json")
+)
+
+
+@app.get("/api/radar/list")
+def radar_list():
+    """读取工作台 content.json 的 topics.radar 集合（国学/银发康养选题灵感）。"""
+    if not RADAR_STORE.exists():
+        return {"items": [], "count": 0, "source": "empty", "updated_at": None}
+    try:
+        data = json.loads(RADAR_STORE.read_text(encoding="utf-8"))
+    except Exception:
+        return {"items": [], "count": 0, "source": "error", "updated_at": None}
+    items = [it for it in (data.get("topics.radar") or []) if isinstance(it, dict)]
+    items = sorted(items, key=lambda x: (x.get("hot") or 0), reverse=True)
+    return {
+        "items": items,
+        "count": len(items),
+        "source": "content.json",
+        "updated_at": None,
+    }

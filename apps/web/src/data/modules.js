@@ -87,6 +87,16 @@ export const overview = {
   desc: '今日自动化任务与开标数据一览',
 }
 
+// 热点雷达（借 Easel 热点雷达，聚合热榜→国学/银发康养选题灵感；读 智能体工作台 content.json）
+export const radar = {
+  id: 'radar',
+  label: '热点雷达',
+  en: 'HOT RADAR',
+  icon: 'radar',
+  accent: 'green',
+  desc: '借 Easel 热点雷达 · 聚合微博/抖音/知乎/头条/百度/B站热榜，按国学·银发康养关键词筛选',
+}
+
 // 关键词配置（占位初值，M1 起在界面中可编辑并持久化）
 export const keywordPresets = {
   bid: ['EPC', 'PC', '施工', '风电', '煤电', '光伏', '电缆'],
