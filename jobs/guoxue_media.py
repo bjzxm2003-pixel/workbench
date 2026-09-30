@@ -24,11 +24,42 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from server import wechat  # noqa: E402
 from server.config import DATA_DIR, load_media_keywords  # noqa: E402
-from server.llm import deepseek_json, llm_configured, LLMError  # noqa: E402
+from server.llm import deepseek_json, llm_configured, LLMBlocked, LLMError  # noqa: E402
 
 BJ_TZ = timezone(timedelta(hours=8))
 REPORT_DIR = DATA_DIR / "media" / "reports"
 LAST_RUN_FILE = DATA_DIR / "media" / "guoxue_last_run.json"
+
+
+# ---------------- 内容风控兜底（Content Exists Risk） ----------------
+BLOCKED: list[dict] = []
+
+
+def _resolve(e: Exception, stage: str, default):
+    """被风控拦截时跳过该条并继续；其它错误仍然抛出，避免掩盖真实故障。"""
+    if isinstance(e, LLMBlocked):
+        BLOCKED.append(
+            {
+                "stage": stage,
+                "request_id": getattr(e, "request_id", ""),
+                "log_file": getattr(e, "log_file", ""),
+                "at": datetime.now(BJ_TZ).strftime("%Y-%m-%d %H:%M:%S"),
+            }
+        )
+        print(f"[warn] {stage} 被内容风控拦截（已跳过）：{str(e)[:160]}", file=sys.stderr)
+        return default
+    raise e
+
+
+def blocked_note() -> list[str]:
+    if not BLOCKED:
+        return []
+    return [
+        f"> ⚠️ **本次有 {len(BLOCKED)} 个环节被模型服务方内容风控拦截**（`Content Exists Risk`），已跳过。",
+        "> 被拦请求原文落盘在 `data/media/blocked/`，可用 `python -m jobs.diag_risk` 定位。",
+        "",
+    ]
+
 
 
 def today_bj() -> str:
@@ -47,27 +78,30 @@ def _metric(it: dict) -> str:
 
 
 def ai_candidates(keywords: list[str]) -> list[dict]:
-    """AI 模拟近期国学好物/智慧向爆款短视频选题（平台爆款指标不可公开抓取）。"""
+    """AI 模拟近期国学好物/智慧向爆款短视频选题（平台爆款指标不可公开抓取）。被拦时返回空列表。"""
     kw = "、".join(keywords)
-    out = deepseek_json(
-        [
-            {"role": "system", "content": "你是懂抖音/快手内容生态的国学短视频策划，只输出 JSON 对象。"},
-            {
-                "role": "user",
-                "content": (
-                    f"围绕国学经典（关键词：{kw}），设计 6 条近半年最具代表性的爆款短视频选题"
-                    "（覆盖：口播金句、剧情反转、干货讲解、场景演绎等类型，平台为抖音/快手）。"
-                    '每条字段：{"platform":"抖音或快手","type":"口播/剧情/干货等",'
-                    '"keyword":"命中的国学关键词","title":"视频标题文案",'
-                    '"hook":"前3秒钩子（一句话）","logic":"脚本一句话概括（人物→冲突→金句）",'
-                    '"like":点赞整数,"comment":评论整数,"collect":收藏整数,"play":"播放量如 3000万"}'
-                    '整体：{"candidates":[...]}。点赞区间 8万-220万，突出真实爆款感。'
-                ),
-            },
-        ],
-        temperature=1.0,
-        max_tokens=2200,
-    )
+    try:
+        out = deepseek_json(
+            [
+                {"role": "system", "content": "你是懂抖音/快手内容生态的国学短视频策划，只输出 JSON 对象。"},
+                {
+                    "role": "user",
+                    "content": (
+                        f"围绕国学经典（关键词：{kw}），设计 6 条近半年最具代表性的爆款短视频选题"
+                        "（覆盖：口播金句、剧情反转、干货讲解、场景演绎等类型，平台为抖音/快手）。"
+                        '每条字段：{"platform":"抖音或快手","type":"口播/剧情/干货等",'
+                        '"keyword":"命中的国学关键词","title":"视频标题文案",'
+                        '"hook":"前3秒钩子（一句话）","logic":"脚本一句话概括（人物→冲突→金句）",'
+                        '"like":点赞整数,"comment":评论整数,"collect":收藏整数,"play":"播放量如 3000万"}'
+                        '整体：{"candidates":[...]}。点赞区间 8万-220万，突出真实爆款感。'
+                    ),
+                },
+            ],
+            temperature=1.0,
+            max_tokens=2200,
+        )
+    except LLMBlocked as e:
+        return _resolve(e, "AI 选题生成", [])
     items = []
     for c in (out or {}).get("candidates") or []:
         items.append(
@@ -100,51 +134,57 @@ def analyze_top3(top3: list[dict]) -> list[dict]:
         }
         for i, it in enumerate(top3, 1)
     ]
-    out = deepseek_json(
-        [
-            {"role": "system", "content": "你是爆款短视频拆解专家，只输出 JSON 对象。"},
-            {
-                "role": "user",
-                "content": (
-                    "请逐条拆解以下 3 条国学爆款短视频（与输入同序）。每条结构："
-                    '{"idx":序号,"hook_points":["前3秒最抓人的2-3个看点，各一句话"],'
-                    '"script_flow":["还原其脚本/剧情推进逻辑，3-5步，各一句话"],'
-                    '"success":["完播/点赞/评论高的原因分析，3-4条：情绪共鸣/反转/干货/视觉等"]}'
-                    f'整体：{{"analyses":[...]}}。输入：{json.dumps(payload, ensure_ascii=False)}'
-                ),
-            },
-        ],
-        temperature=0.7,
-        max_tokens=2400,
-    )
+    try:
+        out = deepseek_json(
+            [
+                {"role": "system", "content": "你是爆款短视频拆解专家，只输出 JSON 对象。"},
+                {
+                    "role": "user",
+                    "content": (
+                        "请逐条拆解以下 3 条国学爆款短视频（与输入同序）。每条结构："
+                        '{"idx":序号,"hook_points":["前3秒最抓人的2-3个看点，各一句话"],'
+                        '"script_flow":["还原其脚本/剧情推进逻辑，3-5步，各一句话"],'
+                        '"success":["完播/点赞/评论高的原因分析，3-4条：情绪共鸣/反转/干货/视觉等"]}'
+                        f'整体：{{"analyses":[...]}}。输入：{json.dumps(payload, ensure_ascii=False)}'
+                    ),
+                },
+            ],
+            temperature=0.7,
+            max_tokens=2400,
+        )
+    except LLMBlocked as e:
+        out = _resolve(e, "Top3 拆解", {})
     analyses = {a.get("idx"): a for a in (out or {}).get("analyses") or []}
     return [analyses.get(i, {}) for i in range(1, len(top3) + 1)]
 
 
 def adapt_script(item: dict, keywords: list[str]) -> dict:
     kw = "、".join(keywords)
-    out = deepseek_json(
-        [
-            {"role": "system", "content": "你是国学×短视频编剧（擅长把国学智慧讲成现代人爱看的抖音内容），只输出 JSON 对象。"},
-            {
-                "role": "user",
-                "content": (
-                    f"基于以下参考爆款的结构，为抖音创作一条 55-60 秒的改编短视频脚本。"
-                    f"主题要求：融合【{kw}】中的国学经典 × 个人成长/商业智慧（如：道德经·柔弱胜刚强→谈判/职场低谷、"
-                    "易经·潜龙勿用→蛰伏期、论语·君子和而不同→团队管理，任选并自由发挥）。"
-                    '输出字段：{"title":"视频封面标题/文案","hook":"0-3秒：画面+口播（决定完播）",'
-                    '"script":"完整口播逐字稿（约240-300字，用\\n分段，含金句收尾与互动引导）",'
-                    '"storyboard":[{"t":"0-3s","scene":"画面/景别/运镜","text":"口播或字幕"}...]（8-10镜覆盖全片）,'
-                    '"style":{"captions":"字幕样式建议","bgm":"配乐情绪建议","voice":"音色/语速建议"},'
-                    '"post":{"cover":"封面大字建议","topic":"#话题 3-5个","best_time":"最佳发布时间与理由",'
-                    '"cta":"评论区置顶引导语"}}'
-                    f"参考爆款：{json.dumps(item, ensure_ascii=False)}"
-                ),
-            },
-        ],
-        temperature=0.9,
-        max_tokens=3600,
-    )
+    try:
+        out = deepseek_json(
+            [
+                {"role": "system", "content": "你是国学×短视频编剧（擅长把国学智慧讲成现代人爱看的抖音内容），只输出 JSON 对象。"},
+                {
+                    "role": "user",
+                    "content": (
+                        f"基于以下参考爆款的结构，为抖音创作一条 55-60 秒的改编短视频脚本。"
+                        f"主题要求：融合【{kw}】中的国学经典 × 个人成长/商业智慧（如：道德经·柔弱胜刚强→谈判/职场低谷、"
+                        "易经·潜龙勿用→蛰伏期、论语·君子和而不同→团队管理，任选并自由发挥）。"
+                        '输出字段：{"title":"视频封面标题/文案","hook":"0-3秒：画面+口播（决定完播）",'
+                        '"script":"完整口播逐字稿（约240-300字，用\\n分段，含金句收尾与互动引导）",'
+                        '"storyboard":[{"t":"0-3s","scene":"画面/景别/运镜","text":"口播或字幕"}...]（8-10镜覆盖全片）,'
+                        '"style":{"captions":"字幕样式建议","bgm":"配乐情绪建议","voice":"音色/语速建议"},'
+                        '"post":{"cover":"封面大字建议","topic":"#话题 3-5个","best_time":"最佳发布时间与理由",'
+                        '"cta":"评论区置顶引导语"}}'
+                        f"参考爆款：{json.dumps(item, ensure_ascii=False)}"
+                    ),
+                },
+            ],
+            temperature=0.9,
+            max_tokens=3600,
+        )
+    except LLMBlocked as e:
+        out = _resolve(e, "改编脚本", {})
     return {
         "title": str(out.get("title", "")).strip(),
         "hook": str(out.get("hook", "")).strip(),
@@ -159,6 +199,7 @@ def build_report(date_str: str, candidates: list, top3: list, analyses: list, ad
     L = [
         f"# 📜 国学经典 · 爆款短视频拆解与改编脚本（{date_str}）",
         "",
+        *blocked_note(),
         f"> 关键词：{kw}",
         "> 数据源：抖音/快手公开接口不可用（需登录/反爬），本期选题为 **DeepSeek 趋势模拟**，点赞/播放等指标为模型预估（创作参考）。",
         "",
@@ -242,12 +283,19 @@ def digest_md(date_str: str, top3: list, adapted: dict, report_rel: str) -> str:
 def run_guoxue(date_str: str | None = None, push: bool | None = None) -> dict:
     if not llm_configured():
         raise LLMError("未配置 DEEPSEEK_API_KEY：M5 需要大模型拆解与脚本创作")
+    BLOCKED.clear()  # 同一进程内可能多次调用，避免跨轮累积
     d = date_str or today_bj()
     keywords = load_media_keywords("guoxue")
     kw_text = "、".join(keywords)
 
     cands = ai_candidates(keywords)
     if not cands:
+        if BLOCKED:
+            raise LLMError(
+                f"选题被内容风控拦截（{len(BLOCKED)} 处 Content Exists Risk），"
+                "被拦请求已落盘 data/media/blocked/；可用 python -m jobs.diag_risk 定位，"
+                "或设置 DEEPSEEK_BASE_URL / DEEPSEEK_MODEL 切换模型供应商重试。"
+            )
         raise LLMError("AI 选题生成失败，请重试")
     cands = sorted(cands, key=lambda x: x.get("like") or 0, reverse=True)
     top3 = cands[:3]
@@ -273,6 +321,7 @@ def run_guoxue(date_str: str | None = None, push: bool | None = None) -> dict:
         "adapted_title": adapted.get("title"),
         "report_file": report_rel,
         "push": push_result,
+        "blocked": len(BLOCKED),
     }
     _save_json(
         LAST_RUN_FILE,

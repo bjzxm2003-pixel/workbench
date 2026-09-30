@@ -23,9 +23,41 @@ import requests  # noqa: E402
 
 from server import wechat  # noqa: E402
 from server.config import DATA_DIR, load_media_keywords  # noqa: E402
-from server.llm import deepseek_json, llm_configured, LLMError  # noqa: E402
+from server.llm import deepseek_json, llm_configured, LLMBlocked, LLMError  # noqa: E402
 
 BJ_TZ = timezone(timedelta(hours=8))
+
+
+# ---------------- 内容风控兜底（Content Exists Risk） ----------------
+BLOCKED: list[dict] = []
+
+
+def _resolve(e: Exception, stage: str, default):
+    """被风控拦截时跳过该条并继续；其它错误仍然抛出，避免掩盖真实故障。"""
+    if isinstance(e, LLMBlocked):
+        BLOCKED.append(
+            {
+                "stage": stage,
+                "request_id": getattr(e, "request_id", ""),
+                "log_file": getattr(e, "log_file", ""),
+                "at": datetime.now(BJ_TZ).strftime("%Y-%m-%d %H:%M:%S"),
+            }
+        )
+        print(f"[warn] {stage} 被内容风控拦截（已跳过）：{str(e)[:160]}", file=sys.stderr)
+        return default
+    raise e
+
+
+def blocked_note() -> list[str]:
+    if not BLOCKED:
+        return []
+    return [
+        f"> ⚠️ **本次有 {len(BLOCKED)} 个环节被模型服务方内容风控拦截**（`Content Exists Risk`），已跳过。",
+        "> 被拦请求原文落盘在 `data/media/blocked/`，可用 `python -m jobs.diag_risk` 定位。",
+        "",
+    ]
+
+
 HOT_URL = "https://www.toutiao.com/hot-event/hot-board/?origin=toutiao_pc"
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
 
@@ -88,27 +120,30 @@ def fetch_hot(keywords: list[str]) -> list[dict]:
 
 
 def ai_fallback(need: int, keywords: list[str]) -> list[dict]:
-    """AI 趋势模拟补齐（明确标注 sim=True，指标为模型预估）。"""
+    """AI 趋势模拟补齐（明确标注 sim=True，指标为模型预估）。被风控拦截时返回空列表。"""
     kw = "、".join(keywords)
-    out = deepseek_json(
-        [
-            {
-                "role": "system",
-                "content": "你是资深自媒体内容策划。请输出 JSON 对象，不要输出其它文字。",
-            },
-            {
-                "role": "user",
-                "content": (
-                    f"围绕银发经济/康养方向（关键词：{kw}），请设计 {need + 2} 条近期最可能爆火的今日头条/小红书文案选题。"
-                    '每条字段：{"platform": "今日头条或小红书", "keyword": "命中的关键词", "title": "完整标题", '
-                    '"abstract": "一句话内容概要", "like": 点赞整数, "comment": 评论整数, "collect": 收藏整数, "share": 转发整数}'
-                    '整体结构：{"candidates": [...]}。点赞区间 1.2万-18万，突出真实感，避免夸张离谱。'
-                ),
-            },
-        ],
-        temperature=1.0,
-        max_tokens=2000,
-    )
+    try:
+        out = deepseek_json(
+            [
+                {
+                    "role": "system",
+                    "content": "你是资深自媒体内容策划。请输出 JSON 对象，不要输出其它文字。",
+                },
+                {
+                    "role": "user",
+                    "content": (
+                        f"围绕银发经济/康养方向（关键词：{kw}），请设计 {need + 2} 条近期最可能爆火的今日头条/小红书文案选题。"
+                        '每条字段：{"platform": "今日头条或小红书", "keyword": "命中的关键词", "title": "完整标题", '
+                        '"abstract": "一句话内容概要", "like": 点赞整数, "comment": 评论整数, "collect": 收藏整数, "share": 转发整数}'
+                        '整体结构：{"candidates": [...]}。点赞区间 1.2万-18万，突出真实感，避免夸张离谱。'
+                    ),
+                },
+            ],
+            temperature=1.0,
+            max_tokens=2000,
+        )
+    except LLMBlocked as e:
+        return _resolve(e, "AI 趋势模拟补齐", [])
     cands = (out or {}).get("candidates") or []
     items = []
     for c in cands[: need + 4]:
@@ -144,46 +179,52 @@ def analyze_top3(top3: list[dict]) -> list[dict]:
                 "metric": (it.get("metric") if it["metric"] is not None else it.get("like")),
             }
         )
-    out = deepseek_json(
-        [
-            {"role": "system", "content": "你是爆款文案拆解专家，只输出 JSON 对象。"},
-            {
-                "role": "user",
-                "content": (
-                    "请逐篇拆解下列 3 篇银发/康养爆款（输出与输入同序）。"
-                    '每篇结构：{"idx":序号,"title_hooks":["2-3个标题亮点，各一句话"],'
-                    '"core":["3-5句核心内容概括"],"framework":{"open":"开头手法一句话",'
-                    '"body":"正文结构手法一句话","close":"结尾手法一句话"},'
-                    '"angles":["3个不同的改写方向，各一句话"]}'
-                    f'整体：{{"analyses":[...]}}。输入：{json.dumps(payload, ensure_ascii=False)}'
-                ),
-            },
-        ],
-        temperature=0.7,
-        max_tokens=2600,
-    )
+    try:
+        out = deepseek_json(
+            [
+                {"role": "system", "content": "你是爆款文案拆解专家，只输出 JSON 对象。"},
+                {
+                    "role": "user",
+                    "content": (
+                        "请逐篇拆解下列 3 篇银发/康养爆款（输出与输入同序）。"
+                        '每篇结构：{"idx":序号,"title_hooks":["2-3个标题亮点，各一句话"],'
+                        '"core":["3-5句核心内容概括"],"framework":{"open":"开头手法一句话",'
+                        '"body":"正文结构手法一句话","close":"结尾手法一句话"},'
+                        '"angles":["3个不同的改写方向，各一句话"]}'
+                        f'整体：{{"analyses":[...]}}。输入：{json.dumps(payload, ensure_ascii=False)}'
+                    ),
+                },
+            ],
+            temperature=0.7,
+            max_tokens=2600,
+        )
+    except LLMBlocked as e:
+        out = _resolve(e, "Top3 拆解", {})
     analyses = {a.get("idx"): a for a in (out or {}).get("analyses") or []}
     return [analyses.get(i, {}) for i in range(1, len(top3) + 1)]
 
 
 def rewrite_best(item: dict) -> dict:
-    out = deepseek_json(
-        [
-            {"role": "system", "content": "你是今日头条爆款文案作者，熟悉银发经济领域，只输出 JSON 对象。"},
-            {
-                "role": "user",
-                "content": (
-                    "基于下面的参考选题，原创改写一篇适合发布在今日头条的中文爆款文案。"
-                    '要求：标题直击情绪/痛点（含数字或强对比更佳）；正文 700-1000 字，'
-                    "首段 3 句内抓人，结构清晰有共鸣；结尾带互动引导；输出："
-                    '{"title":"新标题","body":"完整正文（用\\n分段）","tags":["#银发经济","#康养"...]}'
-                    f"参考选题：{json.dumps(item, ensure_ascii=False)}"
-                ),
-            },
-        ],
-        temperature=0.9,
-        max_tokens=3200,
-    )
+    try:
+        out = deepseek_json(
+            [
+                {"role": "system", "content": "你是今日头条爆款文案作者，熟悉银发经济领域，只输出 JSON 对象。"},
+                {
+                    "role": "user",
+                    "content": (
+                        "基于下面的参考选题，原创改写一篇适合发布在今日头条的中文爆款文案。"
+                        '要求：标题直击情绪/痛点（含数字或强对比更佳）；正文 700-1000 字，'
+                        "首段 3 句内抓人，结构清晰有共鸣；结尾带互动引导；输出："
+                        '{"title":"新标题","body":"完整正文（用\\n分段）","tags":["#银发经济","#康养"...]}'
+                        f"参考选题：{json.dumps(item, ensure_ascii=False)}"
+                    ),
+                },
+            ],
+            temperature=0.9,
+            max_tokens=3200,
+        )
+    except LLMBlocked as e:
+        out = _resolve(e, "改写文案", {})
     return {
         "title": str(out.get("title", "")).strip(),
         "body": str(out.get("body", "")).strip(),
@@ -202,6 +243,7 @@ def build_report(date_str: str, real: list, sim: list, top3: list, analyses: lis
     L = [
         f"# 🧓 银发康养 · 爆款拆解与改写日报（{date_str}）",
         "",
+        *blocked_note(),
         f"> 关键词：{'、'.join(load_media_keywords('silver'))}",
         f"> 数据源：今日头条热榜命中 **{len(real)}** 条（真实热度）；不足部分由 AI 按近期趋势模拟 **{len(sim)}** 条补齐。",
         "> 说明：平台不公开精确点赞数，真实条目按热榜热度排序，模拟条目指标为模型预估（创作参考，勿当真实数据引用）。",
@@ -276,6 +318,7 @@ def digest_md(date_str: str, top3: list, rewrite: dict, report_rel: str) -> str:
 def run_silver(date_str: str | None = None, push: bool | None = None) -> dict:
     if not llm_configured():
         raise LLMError("未配置 DEEPSEEK_API_KEY：请填写 server/.env 后重启，M4 需要大模型完成拆解与改写")
+    BLOCKED.clear()  # 同一进程内可能多次调用，避免跨轮累积
     d = date_str or today_bj()
     keywords = load_media_keywords("silver")
 
@@ -288,6 +331,12 @@ def run_silver(date_str: str | None = None, push: bool | None = None) -> dict:
     pool_sim = sorted(sim, key=lambda x: x.get("like") or 0, reverse=True)
     top3 = (pool_real + pool_sim)[:3]
     if not top3:
+        if BLOCKED:
+            raise LLMError(
+                f"候选全部被内容风控拦截（{len(BLOCKED)} 处 Content Exists Risk），"
+                "被拦请求已落盘 data/media/blocked/；可用 python -m jobs.diag_risk 定位，"
+                "或设置 DEEPSEEK_BASE_URL / DEEPSEEK_MODEL 切换模型供应商重试。"
+            )
         raise LLMError("未能获取任何候选（热榜无命中且模拟失败）")
 
     analyses = analyze_top3(top3)
@@ -314,6 +363,7 @@ def run_silver(date_str: str | None = None, push: bool | None = None) -> dict:
         "rewrite_title": rewrite.get("title"),
         "report_file": report_rel,
         "push": push_result,
+        "blocked": len(BLOCKED),
     }
     _save_json(
         LAST_RUN_FILE,
