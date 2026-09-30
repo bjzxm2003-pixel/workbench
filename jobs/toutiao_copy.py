@@ -299,8 +299,9 @@ def candidate_urls() -> list[str]:
     urls: list[str] = []
     if CANDIDATE_FILE.exists():
         for line in CANDIDATE_FILE.read_text(encoding="utf-8").splitlines():
-            s = line.strip()
-            if s and not s.startswith("#") and "toutiao.com" in s:
+            # 支持行尾注释方便人工标注（如“# ✅ 1天前 <标题>”）：URL 取 # 之前的部分
+            s = line.split("#", 1)[0].strip()
+            if s and "toutiao.com" in s:
                 urls.append(s)
     urls += _search_api_urls()
     # 去重保序
