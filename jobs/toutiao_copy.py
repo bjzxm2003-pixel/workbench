@@ -355,35 +355,46 @@ def _search_cache_write(urls: list[str]) -> None:
         print(f"[warn] 搜索结果缓存写入失败：{e}", file=sys.stderr)
 
 
-def _search_api_urls() -> list[str]:
+def _resolve_search_api(api: str) -> tuple[str, str, bool]:
+    """把 TOUTIAO_SEARCH_API 归一成 (endpoint, api_key, use_post)。
+
+    支持三种写法（都对，不用纠结）：
+      1. 裸 key：`tvly-xxxx`              → POST https://api.tavily.com/search（Tavily 默认地址）
+      2. 带 key 的 URL：`https://api.tavily.com/search?api_key=tvly-xxxx`
+      3. 不带 key 的 endpoint：`https://serpapi.com/search?engine=google` → GET ?q=
+    """
+    from urllib.parse import parse_qs, urlparse
+
+    if api and "/" not in api and "?" not in api:
+        return "https://api.tavily.com/search", api, True
+    key = (parse_qs(urlparse(api).query).get("api_key") or [""])[0]
+    return (api.split("?")[0] if key else api), key, bool(key)
+
+
+def _search_api_urls(*, verbose: bool = False) -> list[str]:
     """可选：通过搜索 API 自动发现新的头条文章链接。
 
-    `TOUTIAO_SEARCH_API` 支持两种写法：
-      - 直接给带查询词的 endpoint（SearchApi/Serper 风格）：`https://.../search?q=`
-      - Tavily 风格：`https://api.tavily.com/search?api_key=<key>`（自动改用 POST + Bearer）
-    响应格式不敏感：递归抽取任意层级里的 link/url/href。搜不到不报错，返回空列表。
+    响应格式不敏感：递归抽取任意层级里的 link/url/href/source_url。
+    搜不到不报错（返回空列表），`verbose=True` 时打印响应片段便于排查。
     """
     api = os.environ.get("TOUTIAO_SEARCH_API", "").strip()
     if not api:
         return []
-    cached = _search_cache_read()
-    if cached is not None:
-        print(f"[info] 复用搜索缓存（{len(cached)} 条链接，6 小时内有效）")
-        return cached
+    if not verbose:
+        cached = _search_cache_read()
+        if cached is not None:
+            print(f"[info] 复用搜索缓存（{len(cached)} 条链接，6 小时内有效）")
+            return cached
 
     # 不用 site: 限定——不同服务商对操作符支持不一，且实测能直接命中头条链接
     queries = ["今日头条 国学 智慧 普通人 翻身 财富", "今日头条 银发康养 养生 男性健康 中老年"]
-    # 兼容 Tavily 及各类中转：URL 里带 api_key= 就抽出 key 走 POST 分支（不依赖服务商域名）
-    from urllib.parse import parse_qs, urlparse
-
-    api_key = (parse_qs(urlparse(api).query).get("api_key") or [""])[0]
-    endpoint = api.split("?")[0] if api_key else api
+    endpoint, api_key, use_post = _resolve_search_api(api)
     headers = {"Authorization": f"Bearer {api_key}"} if api_key else {}
 
     out: list[str] = []
     for q in queries:
         try:
-            if api_key:
+            if use_post:
                 r = requests.post(
                     endpoint,
                     json={"api_key": api_key, "query": q, "max_results": 10},
@@ -398,7 +409,13 @@ def _search_api_urls() -> list[str]:
             print(f"[warn] 搜索 API 调用失败（{q}）：{e}", file=sys.stderr)
             continue
         hits = [u for u in _extract_links(data) if "toutiao.com" in u]
-        if not hits:
+        if verbose:
+            total = len(_extract_links(data))
+            top = list(data)[:6] if isinstance(data, dict) else f"list({len(data)})"
+            print(f"  [{q}] 响应顶层: {top} | 抽到链接 {total} 条，其中头条 {len(hits)} 条")
+            if not hits:
+                print(f"    响应片段: {str(data)[:300]}")
+        elif not hits:
             print(f"[warn] 搜索 API 未返回头条链接（{q}）；响应片段：{str(data)[:200]}", file=sys.stderr)
         out += hits
 
@@ -408,7 +425,7 @@ def _search_api_urls() -> list[str]:
         if u not in seen:
             seen.add(u)
             uniq.append(u)
-    if uniq:
+    if uniq and not verbose:
         _search_cache_write(uniq)
     return uniq
 

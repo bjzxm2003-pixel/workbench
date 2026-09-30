@@ -39,15 +39,27 @@ python -m jobs.toutiao_copy   [--date YYYY-MM-DD] [--no-push|--push]
 
 **`TOUTIAO_SEARCH_API` 怎么填**（配到 GitHub Secrets 后无需再手工维护链接清单）：
 
-| 服务商风格 | 填入内容 | 请求方式 |
+| 写法 | 填入内容 | 请求方式 |
 |---|---|---|
-| SearchApi / Serper 等 `q` 参数风格 | 带查询占位或直接可用的 endpoint，如 `https://serpapi.com/search?engine=google` | GET `?q=<查询词>` |
-| Tavily 及各类中转 | `https://api.tavily.com/search?api_key=<你的key>` | 自动改为 POST + `Bearer`，body 带 `query`/`api_key` |
+| **裸 key（推荐，最省事）** | `tvly-xxxxxxxx` | 自动走 `POST https://api.tavily.com/search` |
+| 带 key 的 URL | `https://api.tavily.com/search?api_key=tvly-xxxxxxxx` | 同上（自动去掉 query 里的 key，改用 Bearer + body） |
+| 普通 endpoint（Serper 等） | `https://serpapi.com/search?engine=google` | GET `?q=<查询词>` |
 
-- 判定规则：**URL 里带 `api_key=` 就走 POST 分支**，与域名无关（中转域名同样适用）。
-- 响应格式不敏感：递归抽取任意层级里的 `link`/`url`/`href`，只保留 `toutiao.com` 域。
+- 判定规则：**先看是不是裸 key**（不含 `/` 与 `?` → 按 Tavily 处理）；否则 **URL 里带 `api_key=` 就走 POST** 分支。与域名无关，中转域名同样适用。
+- 响应格式不敏感：递归抽取任意层级里的 `link`/`url`/`href`/`source_url`，只保留 `toutiao.com` 域。
 - 每次运行发 **2 个查询**，结果缓存 6 小时（`data/media/.toutiao_search_cache.json`，不入库）。
 - 搜索失败或未返回头条链接**不报错、不影响主流程**，只打印 `[warn]` 并回退到本地清单。
+
+**接 Tavily 的完整步骤**：
+1. 注册取 key：<https://app.tavily.com> → API Keys → 复制（形如 `tvly-…`）
+2. **先在本地预检**（避免配错 key 白等一次定时任务）：
+   ```
+   TOUTIAO_SEARCH_API='tvly-你的key' python -m jobs.check_search
+   ```
+   预检会打印写法识别结果 → 真实调用 2 个查询 → 对抽到的头条链接逐条 `parse_article` 回源核实。
+3. 预检通过后在 GitHub 填：仓库 Settings → Secrets and variables → Actions → New repository secret，
+   Name 填 `TOUTIAO_SEARCH_API`，Secret 填 **key 本身**（或完整 URL）。
+4. 之后每天 23:00 自动发现新链接，`toutiao_candidates.txt` 不用再手工维护。
 
 **标题字数规范（8-20 字，平台口径：CJK/全角按 1、ASCII 按 0.5）**：
 `fit_title()` 负责超长标题截断与成稿标题回退；**过短标题不丢弃、不改写**，而是：
