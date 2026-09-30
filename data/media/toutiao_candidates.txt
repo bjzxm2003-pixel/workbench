@@ -1,0 +1,11 @@
+# M6 候选文章清单：每行一个今日头条链接（# 开头为注释）
+# 任务会逐个核实「真实标题 + 发布时间」，用于判断是否落在 24-48h 窗口
+# 提示：可设置环境变量 TOUTIAO_SEARCH_API 自动发现更多链接
+https://www.toutiao.com/article/7690884037967151655/
+https://www.toutiao.com/article/7690710971832173111/
+https://www.toutiao.com/article/7690588247239459356/
+https://www.toutiao.com/article/7690573138945442351/
+https://www.toutiao.com/article/7690450458275643943/
+https://www.toutiao.com/w/1875988056183820/
+https://www.toutiao.com/article/7687888725452079668/
+https://www.toutiao.com/article/7683335345366106653/
