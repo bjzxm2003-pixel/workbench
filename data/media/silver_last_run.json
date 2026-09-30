@@ -1,31 +1,32 @@
 {
-  "last_run": "2026-09-08 12:22:00 UTC",
-  "date": "2026-09-08",
+  "last_run": "2026-09-30 15:31:23 UTC",
+  "date": "2026-09-30",
   "real": 0,
   "sim": 5,
   "top3": [
     {
-      "title": "爸妈家改造记：这9个适老化细节，让老人安全又舒心",
+      "title": "退休后月入过万？62岁阿姨分享她的三个副业，不累还开心",
       "platform": "小红书",
       "sim": true,
-      "metric": "模拟点赞 156000"
+      "metric": "模拟点赞 176000"
     },
     {
-      "title": "老龄化加速下的中国：每4个人就有1个老人，我们准备好了吗？",
+      "title": "陪爷爷住了一个月养老院，我才发现他们真正缺的不是钱",
+      "platform": "小红书",
+      "sim": true,
+      "metric": "模拟点赞 158000"
+    },
+    {
+      "title": "我，35岁，辞职去养老院当护理员，发现这行比想象中难但也比想象中暖",
       "platform": "今日头条",
       "sim": true,
-      "metric": "模拟点赞 120000"
-    },
-    {
-      "title": "60岁开始学钢琴，70岁环游世界：这是我见过最酷的老年生活",
-      "platform": "小红书",
-      "sim": true,
-      "metric": "模拟点赞 98000"
+      "metric": "模拟点赞 142000"
     }
   ],
-  "rewrite_title": "爸妈家改造后，我才明白：这9个细节，比给钱更孝顺！",
-  "report_file": "data/media/reports/silver_2026-09-08.md",
+  "rewrite_title": "退休金3000，副业赚1万2：62岁阿姨的3个\"轻副业\"，不累还上瘾",
+  "report_file": "data/media/reports/silver_2026-09-30.md",
   "push": {
     "sent": true
-  }
+  },
+  "blocked": 0
 }
