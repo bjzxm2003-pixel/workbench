@@ -1,28 +1,31 @@
 {
-  "last_run": "2026-09-09 01:53:20 UTC",
-  "date": "2026-09-09",
+  "last_run": "2026-09-30 14:42:55 UTC",
+  "date": "2026-09-30",
   "candidates": 5,
   "top3": [
     {
-      "title": "每天3分钟，拍打这个部位，排毒祛湿，让你年轻10岁",
+      "title": "《黄帝内经》养生秘诀：三寒两倒七分饱，活到九十不显老",
       "platform": "抖音",
-      "type": "干货讲解",
-      "metric": "模拟点赞 2200000"
+      "type": "干货",
+      "metric": "模拟点赞 2100000"
     },
     {
-      "title": "老祖宗的社交潜规则：话要软，事要硬，心要狠",
+      "title": "《道德经》最狠的一句话，让你瞬间清醒",
       "platform": "抖音",
-      "type": "口播金句",
-      "metric": "模拟点赞 1850000"
+      "type": "口播",
+      "metric": "模拟点赞 1560000"
     },
     {
-      "title": "人到中年才明白：命里有时终须有，命里无时莫强求",
-      "platform": "抖音",
-      "type": "口播金句",
-      "metric": "模拟点赞 1500000"
+      "title": "面试官刁难，小伙用《论语》一句话回怼，当场录取！",
+      "platform": "快手",
+      "type": "场景演绎",
+      "metric": "模拟点赞 1200000"
     }
   ],
-  "adapted_title": "道德经·柔弱胜刚强：谈判高手的终极武器",
-  "report_file": "data/media/reports/guoxue_2026-09-09.md",
-  "push": null
+  "adapted_title": "道德经最狠智慧：柔弱胜刚强，低谷期必看",
+  "report_file": "data/media/reports/guoxue_2026-09-30.md",
+  "push": {
+    "sent": true
+  },
+  "blocked": 0
 }
