@@ -34,8 +34,20 @@ python -m jobs.toutiao_copy   [--date YYYY-MM-DD] [--no-push|--push]
 （平台不公开阅读/点赞/评论/收藏/转发），只用两类硬证据：① 热榜真实 `热度值`；② 文章页核实的真实标题与发布时间。
 
 **可选增强**（不配置也能跑）：
-- 设置环境变量 `TOUTIAO_SEARCH_API`（SearchApi / Tavily 风格，返回 `organic_results[].link`）
 - 或在 `data/media/toutiao_candidates.txt` 每行写一个头条文章链接，任务会逐个核实标题与发布时间
+- 或配置搜索 API 自动发现新链接（`TOUTIAO_SEARCH_API`），见下
+
+**`TOUTIAO_SEARCH_API` 怎么填**（配到 GitHub Secrets 后无需再手工维护链接清单）：
+
+| 服务商风格 | 填入内容 | 请求方式 |
+|---|---|---|
+| SearchApi / Serper 等 `q` 参数风格 | 带查询占位或直接可用的 endpoint，如 `https://serpapi.com/search?engine=google` | GET `?q=<查询词>` |
+| Tavily 及各类中转 | `https://api.tavily.com/search?api_key=<你的key>` | 自动改为 POST + `Bearer`，body 带 `query`/`api_key` |
+
+- 判定规则：**URL 里带 `api_key=` 就走 POST 分支**，与域名无关（中转域名同样适用）。
+- 响应格式不敏感：递归抽取任意层级里的 `link`/`url`/`href`，只保留 `toutiao.com` 域。
+- 每次运行发 **2 个查询**，结果缓存 6 小时（`data/media/.toutiao_search_cache.json`，不入库）。
+- 搜索失败或未返回头条链接**不报错、不影响主流程**，只打印 `[warn]` 并回退到本地清单。
 
 **标题字数规范（8-20 字，平台口径：CJK/全角按 1、ASCII 按 0.5）**：
 `fit_title()` 负责超长标题截断与成稿标题回退；**过短标题不丢弃、不改写**，而是：

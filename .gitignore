@@ -34,6 +34,9 @@ data/media/.tmp_render/
 # M6 生成缓存（体积大且为中间产物，不入库）
 data/media/.toutiao_gen_cache.json
 
+# M6 搜索结果缓存（本地 6 小时复用，不入库）
+data/media/.toutiao_search_cache.json
+
 # 内容风控取证与被拦请求原文（可能含敏感文本，不入库）
 data/media/blocked/
 

@@ -54,6 +54,8 @@ REPORT_DIR = DATA_DIR / "media" / "reports"
 LAST_RUN_FILE = DATA_DIR / "media" / "toutiao_last_run.json"
 CANDIDATE_FILE = DATA_DIR / "media" / "toutiao_candidates.txt"
 GEN_CACHE = DATA_DIR / "media" / ".toutiao_gen_cache.json"
+# 搜索结果缓存（6 小时内复用，避免重复消耗搜索额度）
+SEARCH_CACHE = DATA_DIR / "media" / ".toutiao_search_cache.json"
 
 # 两个赛道从同一份证据池里各取所需
 TRACKS = {
@@ -310,27 +312,104 @@ def candidate_urls() -> list[str]:
     return out
 
 
+def _extract_links(obj, depth: int = 0) -> list[str]:
+    """从任意 JSON 结构里递归找出链接（兼容多种服务商的响应格式）。"""
+    found: list[str] = []
+    if depth > 4:
+        return found
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if isinstance(v, str):
+                if k in ("link", "url", "href", "source_url") and v.startswith("http"):
+                    found.append(v)
+            elif isinstance(v, (dict, list)):
+                found += _extract_links(v, depth + 1)
+    elif isinstance(obj, list):
+        for it in obj:
+            if isinstance(it, (str, dict, list)):
+                found += _extract_links(it, depth + 1)
+    return found
+
+
+def _search_cache_read() -> list[str] | None:
+    """6 小时内命中过的搜索结果直接复用，避免每次运行重复消耗搜索额度。"""
+    try:
+        if SEARCH_CACHE.exists():
+            d = json.loads(SEARCH_CACHE.read_text(encoding="utf-8"))
+            at = datetime.strptime(d.get("at", ""), "%Y-%m-%d %H:%M:%S").replace(tzinfo=BJ_TZ)
+            if datetime.now(BJ_TZ) - at < timedelta(hours=6):
+                return [u for u in (d.get("urls") or []) if "toutiao.com" in u]
+    except Exception:  # noqa: BLE001  缓存损坏不影响主流程
+        pass
+    return None
+
+
+def _search_cache_write(urls: list[str]) -> None:
+    try:
+        _save_json(
+            SEARCH_CACHE,
+            {"at": datetime.now(BJ_TZ).strftime("%Y-%m-%d %H:%M:%S"), "urls": urls},
+        )
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] 搜索结果缓存写入失败：{e}", file=sys.stderr)
+
+
 def _search_api_urls() -> list[str]:
-    """可选：TOUTIAO_SEARCH_API 返回 {organic_results|results:[{link|url}]} 时抽取链接。"""
+    """可选：通过搜索 API 自动发现新的头条文章链接。
+
+    `TOUTIAO_SEARCH_API` 支持两种写法：
+      - 直接给带查询词的 endpoint（SearchApi/Serper 风格）：`https://.../search?q=`
+      - Tavily 风格：`https://api.tavily.com/search?api_key=<key>`（自动改用 POST + Bearer）
+    响应格式不敏感：递归抽取任意层级里的 link/url/href。搜不到不报错，返回空列表。
+    """
     api = os.environ.get("TOUTIAO_SEARCH_API", "").strip()
     if not api:
         return []
-    queries = ["今日头条 国学 普通人 翻身 财富", "今日头条 银发康养 养生 男性健康"]
+    cached = _search_cache_read()
+    if cached is not None:
+        print(f"[info] 复用搜索缓存（{len(cached)} 条链接，6 小时内有效）")
+        return cached
+
+    # 不用 site: 限定——不同服务商对操作符支持不一，且实测能直接命中头条链接
+    queries = ["今日头条 国学 智慧 普通人 翻身 财富", "今日头条 银发康养 养生 男性健康 中老年"]
+    # 兼容 Tavily 及各类中转：URL 里带 api_key= 就抽出 key 走 POST 分支（不依赖服务商域名）
+    from urllib.parse import parse_qs, urlparse
+
+    api_key = (parse_qs(urlparse(api).query).get("api_key") or [""])[0]
+    endpoint = api.split("?")[0] if api_key else api
+    headers = {"Authorization": f"Bearer {api_key}"} if api_key else {}
+
     out: list[str] = []
     for q in queries:
         try:
-            r = requests.get(api, params={"q": q}, timeout=20)
+            if api_key:
+                r = requests.post(
+                    endpoint,
+                    json={"api_key": api_key, "query": q, "max_results": 10},
+                    headers=headers,
+                    timeout=25,
+                )
+            else:
+                r = requests.get(endpoint, params={"q": q}, timeout=25)
             r.raise_for_status()
             data = r.json()
         except Exception as e:  # noqa: BLE001
-            print(f"[warn] 搜索 API 调用失败：{e}", file=sys.stderr)
+            print(f"[warn] 搜索 API 调用失败（{q}）：{e}", file=sys.stderr)
             continue
-        items = data.get("organic_results") or data.get("results") or []
-        for it in items:
-            link = str(it.get("link") or it.get("url") or "")
-            if "toutiao.com" in link:
-                out.append(link)
-    return out
+        hits = [u for u in _extract_links(data) if "toutiao.com" in u]
+        if not hits:
+            print(f"[warn] 搜索 API 未返回头条链接（{q}）；响应片段：{str(data)[:200]}", file=sys.stderr)
+        out += hits
+
+    # 去重保序后写缓存
+    seen, uniq = set(), []
+    for u in out:
+        if u not in seen:
+            seen.add(u)
+            uniq.append(u)
+    if uniq:
+        _search_cache_write(uniq)
+    return uniq
 
 
 def gather_evidence(hot_kws: list[str], max_articles: int = 12) -> tuple[list[dict], list[dict]]:
