@@ -9,6 +9,9 @@ on:
 jobs:
   silver-media:
     runs-on: ubuntu-latest
+    # 显式授予写权限：默认 GITHUB_TOKEN 可能只读，会导致最后的 git push 失败、报告回不了仓库
+    permissions:
+      contents: write
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
