@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-10-01 15:11:42 UTC",
-  "date": "2026-10-01",
+  "last_run": "2026-10-02 14:32:10 UTC",
+  "date": "2026-10-02",
   "candidates": 5,
   "top3": [
     {
-      "title": "《道德经》5大天机，读懂改变一生！",
+      "title": "《易经》教你2025年如何转运，这三个生肖要注意",
       "platform": "抖音",
       "type": "干货",
       "metric": "模拟点赞 2100000"
     },
     {
-      "title": "鬼谷子：一个人开始变强的3个征兆，你有吗？",
+      "title": "王阳明：人到绝境，必有转机（深度好文）",
       "platform": "抖音",
       "type": "口播",
-      "metric": "模拟点赞 1850000"
+      "metric": "模拟点赞 1980000"
     },
     {
-      "title": "《易经》最狠的一句话，点醒无数中年人！",
+      "title": "《论语》中最狠的一句话，点醒无数中年人",
       "platform": "抖音",
       "type": "口播",
-      "metric": "模拟点赞 1520000"
+      "metric": "模拟点赞 1856000"
     }
   ],
-  "adapted_title": "《道德经》最狠的生存智慧：柔弱胜刚强，低谷期必看！",
-  "report_file": "data/media/reports/guoxue_2026-10-01.md",
+  "adapted_title": "《道德经》弱者的逆袭：越柔软，越强大",
+  "report_file": "data/media/reports/guoxue_2026-10-02.md",
   "push": {
     "sent": true
   },
