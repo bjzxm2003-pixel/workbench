@@ -425,9 +425,46 @@ def _search_api_urls(*, verbose: bool = False) -> list[str]:
         if u not in seen:
             seen.add(u)
             uniq.append(u)
-    if uniq and not verbose:
-        _search_cache_write(uniq)
-    return uniq
+    fresh, stale, non_article = _filter_fresh_article_urls(uniq)
+    if verbose and (stale or non_article):
+        print(f"  过滤：剔除 {stale} 条旧文（article id 不足 18 位）、{non_article} 条非文章页")
+    if fresh and not verbose:
+        _search_cache_write(fresh)
+    return fresh
+
+
+# 头条 article id 单调递增，可用来判新旧。基准：2026-09-29 的文章 id ≈ 7.69e18；
+# 2024 年的旧文为 7.27e18（19 位但量级明显更低）。留余量避免误杀。
+# 可用环境变量 TOUTIAO_MIN_ARTICLE_ID 覆盖，便于日后校准。
+
+
+def _min_article_id() -> int:
+    raw = os.environ.get("TOUTIAO_MIN_ARTICLE_ID", "").strip()
+    if raw.isdigit():
+        return int(raw)
+    return 7_650_000_000_000_000_000
+
+
+def _filter_fresh_article_urls(urls: list[str]) -> tuple[list[str], int, int]:
+    """只保留「近期的 /article/ 文章页」。
+
+    实测（2026-10，Tavily）搜索大量返回 /w/ 微头条与陈年旧文：
+    - 微头条是用户动态，标题带用户名前缀，质量与信噪比都差 → 直接剔除；
+    - 旧文的 article id 量级明显偏低 → 按 id 阈值判旧，避免白白占用候选位。
+    返回 (保留, 剔除旧文数, 剔除非文章页数)。
+    """
+    floor = _min_article_id()
+    fresh, stale, non_article = [], 0, 0
+    for u in urls:
+        m = re.search(r"toutiao\.com/article/(\d+)", u)
+        if not m:
+            non_article += 1
+            continue
+        if int(m.group(1)) < floor:
+            stale += 1
+            continue
+        fresh.append(u)
+    return fresh, stale, non_article
 
 
 def gather_evidence(hot_kws: list[str], max_articles: int = 12) -> tuple[list[dict], list[dict]]:
