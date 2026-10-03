@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-10-02 14:32:10 UTC",
-  "date": "2026-10-02",
+  "last_run": "2026-10-03 13:07:53 UTC",
+  "date": "2026-10-03",
   "candidates": 5,
   "top3": [
     {
-      "title": "《易经》教你2025年如何转运，这三个生肖要注意",
+      "title": "易经乾卦六爻，读懂人生六个阶段",
       "platform": "抖音",
       "type": "干货",
-      "metric": "模拟点赞 2100000"
+      "metric": "模拟点赞 2200000"
     },
     {
-      "title": "王阳明：人到绝境，必有转机（深度好文）",
+      "title": "孔子一句话，让你远离内耗",
       "platform": "抖音",
       "type": "口播",
-      "metric": "模拟点赞 1980000"
+      "metric": "模拟点赞 1800000"
     },
     {
-      "title": "《论语》中最狠的一句话，点醒无数中年人",
+      "title": "为什么说‘百善孝为先’？一个故事点醒万人",
       "platform": "抖音",
       "type": "口播",
-      "metric": "模拟点赞 1856000"
+      "metric": "模拟点赞 1500000"
     }
   ],
-  "adapted_title": "《道德经》弱者的逆袭：越柔软，越强大",
-  "report_file": "data/media/reports/guoxue_2026-10-02.md",
+  "adapted_title": "道德经一句“柔弱胜刚强”，让我在谈判桌上多赚200万",
+  "report_file": "data/media/reports/guoxue_2026-10-03.md",
   "push": {
     "sent": true
   },
