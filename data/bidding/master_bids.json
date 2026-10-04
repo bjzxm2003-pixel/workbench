@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-08 14:01:24",
+  "updated_at": "2026-10-04 15:02:44",
   "source": "20260901国家能源集团2026年9月第一批招标计划发布汇总表.pdf",
   "rows": [
     {
@@ -3074,6 +3074,21 @@
       ],
       "source": "国能e招",
       "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20260908/e22f9927-f0f2-410c-a56f-bc5e2f2462f8.html"
+    },
+    {
+      "name": "山西公司沁水新能源蜜镇光伏电站储能系统EPC总承包项目公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-04",
+      "open_at": "2026-10-26 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "EPC",
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261004/7879fce1-43b9-42b2-8825-e0a5fb643c68.html"
     }
   ]
 }
