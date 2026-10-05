@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-10-04 13:47:32 UTC",
-  "date": "2026-10-04",
+  "last_run": "2026-10-05 16:54:09 UTC",
+  "date": "2026-10-06",
   "candidates": 5,
   "top3": [
     {
-      "title": "《易经》教你3秒看透一个人，准到吓人",
-      "platform": "抖音",
-      "type": "干货",
-      "metric": "模拟点赞 2100000"
+      "title": "00后女孩用《论语》怼哭催婚亲戚，全场安静，太解气了！",
+      "platform": "快手",
+      "type": "场景演绎",
+      "metric": "模拟点赞 2320000"
     },
     {
-      "title": "老子一句话，让我戒掉了所有情绪",
+      "title": "曾仕强：人这一辈子，只做三件事就够了，很多人一辈子都没搞明白",
       "platform": "抖音",
-      "type": "口播",
-      "metric": "模拟点赞 1800000"
+      "type": "口播金句",
+      "metric": "模拟点赞 2148000"
     },
     {
-      "title": "《论语》中最狠的一句话，让90%的人瞬间清醒",
-      "platform": "抖音",
-      "type": "口播",
-      "metric": "模拟点赞 1560000"
+      "title": "小伙被裁员后靠《道德经》逆袭，老板亲自上门求他回去，他念了这句话",
+      "platform": "快手",
+      "type": "剧情反转",
+      "metric": "模拟点赞 1853000"
     }
   ],
-  "adapted_title": "《道德经》柔弱胜刚强，3招让你在职场反败为胜",
-  "report_file": "data/media/reports/guoxue_2026-10-04.md",
+  "adapted_title": "《道德经》一句话，让我从职场背锅侠到谈判高手",
+  "report_file": "data/media/reports/guoxue_2026-10-06.md",
   "push": {
     "sent": true
   },
