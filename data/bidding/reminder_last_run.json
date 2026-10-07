@@ -1,12 +1,13 @@
 {
-  "last_run": "2026-10-06 07:23:54 UTC",
-  "as_of": "2026-10-06",
-  "remind_date": "2026-10-07",
-  "count": 0,
-  "names": [],
+  "last_run": "2026-10-07 07:02:44 UTC",
+  "as_of": "2026-10-07",
+  "remind_date": "2026-10-08",
+  "count": 1,
+  "names": [
+    "贵州公司织金公司锅炉燃气代燃油节能改造EPC项目公开招标项目（第3次）招标公告"
+  ],
   "master_total": 234,
   "push": {
-    "sent": false,
-    "reason": "明日无开标项目，不打扰"
+    "sent": true
   }
 }
