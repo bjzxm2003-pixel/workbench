@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-04 15:02:44",
+  "updated_at": "2026-10-10 15:38:34",
   "source": "20260901国家能源集团2026年9月第一批招标计划发布汇总表.pdf",
   "rows": [
     {
@@ -3089,6 +3089,92 @@
       ],
       "source": "国能e招",
       "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261004/7879fce1-43b9-42b2-8825-e0a5fb643c68.html"
+    },
+    {
+      "name": "国电电力陕西新能源开发有限公司清涧5万千瓦风电项目前期咨询服务公开招标项目（第2次）招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-10",
+      "open_at": "2026-11-02 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261010/a638ab74-9e55-4be1-9eb1-edb017f48394.html"
+    },
+    {
+      "name": "江苏公司宿迁电厂基于供热和电储能的火电机组多元联合调频技术改造EPC工程公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-10",
+      "open_at": "2026-11-02 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "EPC"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261010/de7df8ad-c921-4341-a8fe-2c4ea64eb13d.html"
+    },
+    {
+      "name": "河北公司沿海公司国能沧州南皮190兆瓦风电项目风场设备采购及安装施工总承包（标段一）、（标段二）及国能沧州东光一期120兆瓦风电项目风场设备采购及安装施工...",
+      "expect_publish": "",
+      "publish_at": "2026-10-10",
+      "open_at": "2026-11-02 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "施工",
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261010/4f334b45-cfc8-46c1-a17a-89c5670738f9.html"
+    },
+    {
+      "name": "国电电力陕西新能源开发有限公司榆林检修中心、龙澄检修中心、圣熙风电场设备2026年防雷装置安全检测服务公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-10",
+      "open_at": "2026-11-02 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261010/077e317a-3331-4c40-b161-7cc19219ef66.html"
+    },
+    {
+      "name": "国电电力辽宁国电电力能源有限公司分布式光伏电站运行维护服务公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-10",
+      "open_at": "2026-11-02 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261010/a5e779d7-df5a-4fed-b2cb-42dd6d15f12b.html"
+    },
+    {
+      "name": "数科公司国能信控技术股份有限公司承揽2026年多项目打捆（邵东市正阳光伏接入、游家湾风电场接入、双牌新能源倪家洞集控项目）新能源场站区域集控应用系统软件公...",
+      "expect_publish": "",
+      "publish_at": "2026-10-10",
+      "open_at": "2026-10-22 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电",
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261010/d4188172-0125-41e2-a7f8-070bf0d62cda.html"
     }
   ]
 }
