@@ -1,32 +1,31 @@
 {
-  "last_run": "2026-10-09 15:03:19 UTC",
-  "date": "2026-10-09",
+  "last_run": "2026-10-10 14:18:51 UTC",
+  "date": "2026-10-10",
   "candidates": 5,
   "top3": [
     {
-      "title": "老板用《道德经》管理公司，结果员工集体涨薪",
+      "title": "婆婆用易经智慧化解儿媳矛盾，一句话让全家沉默",
       "platform": "快手",
       "type": "剧情",
-      "metric": "模拟点赞 2200000"
+      "metric": "模拟点赞 2100000"
     },
     {
-      "title": "《易经》教你3秒看透一个人",
-      "platform": "抖音",
-      "type": "干货",
-      "metric": "模拟点赞 1800000"
-    },
-    {
-      "title": "《论语》中最狠的一句话，让你瞬间清醒",
+      "title": "35岁以后，三样东西不能碰，否则福气散尽",
       "platform": "抖音",
       "type": "口播",
-      "metric": "模拟点赞 1500000"
+      "metric": "模拟点赞 1520000"
+    },
+    {
+      "title": "孔子一句话，点醒无数中年人：人过五十，学会三不问",
+      "platform": "抖音",
+      "type": "口播",
+      "metric": "模拟点赞 1200000"
     }
   ],
-  "adapted_title": "低谷期必看！《易经》潜龙勿用，让我从月薪3000到年入百万",
-  "report_file": "data/media/reports/guoxue_2026-10-09.md",
+  "adapted_title": "被裁员后，我靠《道德经》一句话翻身",
+  "report_file": "data/media/reports/guoxue_2026-10-10.md",
   "push": {
-    "sent": false,
-    "reason": "推送异常: HTTPSConnectionPool(host='sctapi.ftqq.com', port=443): Read timed out. (read timeout=10)"
+    "sent": true
   },
   "blocked": 0
 }
