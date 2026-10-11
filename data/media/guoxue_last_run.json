@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-10-10 14:18:51 UTC",
-  "date": "2026-10-10",
+  "last_run": "2026-10-11 14:44:13 UTC",
+  "date": "2026-10-11",
   "candidates": 5,
   "top3": [
     {
-      "title": "婆婆用易经智慧化解儿媳矛盾，一句话让全家沉默",
-      "platform": "快手",
-      "type": "剧情",
-      "metric": "模拟点赞 2100000"
-    },
-    {
-      "title": "35岁以后，三样东西不能碰，否则福气散尽",
+      "title": "曾仕强：为什么说‘自作自受’是人生最高智慧？",
       "platform": "抖音",
       "type": "口播",
-      "metric": "模拟点赞 1520000"
+      "metric": "模拟点赞 2200000"
     },
     {
-      "title": "孔子一句话，点醒无数中年人：人过五十，学会三不问",
+      "title": "《道德经》最厉害的3句话，读懂改变一生！",
+      "platform": "抖音",
+      "type": "干货",
+      "metric": "模拟点赞 1500000"
+    },
+    {
+      "title": "孔子一句话，让无数人豁然开朗：这才是真正的格局！",
       "platform": "抖音",
       "type": "口播",
       "metric": "模拟点赞 1200000"
     }
   ],
-  "adapted_title": "被裁员后，我靠《道德经》一句话翻身",
-  "report_file": "data/media/reports/guoxue_2026-10-10.md",
+  "adapted_title": "《道德经》最狠的智慧：柔弱者，才是真正的狠人",
+  "report_file": "data/media/reports/guoxue_2026-10-11.md",
   "push": {
     "sent": true
   },
