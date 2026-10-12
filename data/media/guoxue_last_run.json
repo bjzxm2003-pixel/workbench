@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-10-11 14:44:13 UTC",
-  "date": "2026-10-11",
+  "last_run": "2026-10-12 17:29:50 UTC",
+  "date": "2026-10-13",
   "candidates": 5,
   "top3": [
     {
-      "title": "曾仕强：为什么说‘自作自受’是人生最高智慧？",
+      "title": "《易经》中最厉害的3句话，读懂改变一生",
       "platform": "抖音",
-      "type": "口播",
+      "type": "口播金句",
       "metric": "模拟点赞 2200000"
     },
     {
-      "title": "《道德经》最厉害的3句话，读懂改变一生！",
+      "title": "老子一句话，解决你99%的烦恼",
       "platform": "抖音",
-      "type": "干货",
-      "metric": "模拟点赞 1500000"
+      "type": "口播金句",
+      "metric": "模拟点赞 2100000"
     },
     {
-      "title": "孔子一句话，让无数人豁然开朗：这才是真正的格局！",
+      "title": "《黄帝内经》四季养生法，照着做多活20年",
       "platform": "抖音",
-      "type": "口播",
-      "metric": "模拟点赞 1200000"
+      "type": "干货讲解",
+      "metric": "模拟点赞 1800000"
     }
   ],
-  "adapted_title": "《道德经》最狠的智慧：柔弱者，才是真正的狠人",
-  "report_file": "data/media/reports/guoxue_2026-10-11.md",
+  "adapted_title": "《道德经》最狠的智慧：柔弱胜刚强，低谷期必看！",
+  "report_file": "data/media/reports/guoxue_2026-10-13.md",
   "push": {
     "sent": true
   },
