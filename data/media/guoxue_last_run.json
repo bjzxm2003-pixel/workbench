@@ -1,28 +1,28 @@
 {
-  "last_run": "2026-10-12 17:29:50 UTC",
+  "last_run": "2026-10-13 15:39:52 UTC",
   "date": "2026-10-13",
   "candidates": 5,
   "top3": [
     {
-      "title": "《易经》中最厉害的3句话，读懂改变一生",
+      "title": "易经中最狠的3句话，读懂一句，胜读十年书！",
       "platform": "抖音",
-      "type": "口播金句",
+      "type": "口播",
       "metric": "模拟点赞 2200000"
     },
     {
-      "title": "老子一句话，解决你99%的烦恼",
-      "platform": "抖音",
-      "type": "口播金句",
-      "metric": "模拟点赞 2100000"
+      "title": "老子一句话，让落魄小伙逆袭成公司老板！",
+      "platform": "快手",
+      "type": "剧情",
+      "metric": "模拟点赞 1800000"
     },
     {
-      "title": "《黄帝内经》四季养生法，照着做多活20年",
+      "title": "爷爷用一碗水，教会孙子人生大智慧！",
       "platform": "抖音",
-      "type": "干货讲解",
-      "metric": "模拟点赞 1800000"
+      "type": "剧情",
+      "metric": "模拟点赞 1200000"
     }
   ],
-  "adapted_title": "《道德经》最狠的智慧：柔弱胜刚强，低谷期必看！",
+  "adapted_title": "道德经：越软的人，越有福气",
   "report_file": "data/media/reports/guoxue_2026-10-13.md",
   "push": {
     "sent": true
