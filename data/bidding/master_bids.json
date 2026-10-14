@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-10 15:38:34",
+  "updated_at": "2026-10-14 14:47:25",
   "source": "20260901国家能源集团2026年9月第一批招标计划发布汇总表.pdf",
   "rows": [
     {
@@ -3175,6 +3175,48 @@
       ],
       "source": "国能e招",
       "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261010/d4188172-0125-41e2-a7f8-070bf0d62cda.html"
+    },
+    {
+      "name": "科环集团国能节能承揽国能宁煤烯烃一分公司空冷岛改造项目动力电缆公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-14",
+      "open_at": "2026-10-26 14:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "电缆"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261014/7f6dd7a4-26f8-48e7-9418-66358a017e5d.html"
+    },
+    {
+      "name": "湖南公司国能（东安）新能源有限公司基于模型预测控制算法的集中式光伏电站谷储峰用小型储能系统研究与应用公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-14",
+      "open_at": "2026-11-04 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261014/b1d42cb0-3021-4262-b0a4-4f76d6e4e099.html"
+    },
+    {
+      "name": "龙源电力2026年第一批光伏组件设备框架采购公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-14",
+      "open_at": "2026-11-09 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261014/3b957c04-dc36-4839-b3ca-ceb29de03092.html"
     }
   ]
 }

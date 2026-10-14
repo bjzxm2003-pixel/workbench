@@ -1,23 +1,23 @@
 {
-  "last_run": "2026-10-13 17:15:27 UTC",
+  "last_run": "2026-10-14 14:47:28 UTC",
   "date": "2026-10-14",
   "summary": {
     "date": "2026-10-14",
-    "crawled": 0,
-    "fresh": 0,
-    "matched": 0,
+    "crawled": 23,
+    "fresh": 23,
+    "matched": 3,
     "history_skipped": 0,
-    "added": 0,
+    "added": 3,
     "updated": 0,
-    "master_total": 240,
+    "master_total": 243,
     "push": {
-      "sent": false,
-      "reason": "今日无新增命中项，未推送"
+      "sent": true
     },
     "notes": [
-      "抓取列表 0 条",
-      "2026-10-14 当日 0 条",
-      "关键词命中 0 条，历史去重后新增 0 条"
+      "抓取列表 23 条",
+      "2026-10-14 当日 23 条",
+      "关键词命中 3 条，历史去重后新增 3 条",
+      "主表合并：新增 3，补全 0，现共 243 项"
     ]
   }
 }
