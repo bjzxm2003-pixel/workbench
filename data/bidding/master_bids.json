@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14 14:47:25",
+  "updated_at": "2026-10-15 14:33:30",
   "source": "20260901国家能源集团2026年9月第一批招标计划发布汇总表.pdf",
   "rows": [
     {
@@ -3217,6 +3217,62 @@
       ],
       "source": "国能e招",
       "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261014/3b957c04-dc36-4839-b3ca-ceb29de03092.html"
+    },
+    {
+      "name": "数科公司国能信控技术股份有限公司承揽2026年多项目打捆采购(山西电力智能管理系统、霍州光伏数据入湖等项目)智能管理系统开发等服务公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-15",
+      "open_at": "",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261015/01c6422b-6887-4ae2-8578-9ed8fa39ac45.html"
+    },
+    {
+      "name": "广东公司能源发展2027-2028年度光伏项目业主工程师咨询服务项目公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-15",
+      "open_at": "2026-11-04 16:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261015/5bbf33c2-ca9c-4e8f-bf89-2ee5c2f053d2.html"
+    },
+    {
+      "name": "河北公司衡水热电衡丰扩建项目五通一平施工项目公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-15",
+      "open_at": "2026-11-04 14:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "施工"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261015/487e8e60-1730-4a92-acc6-cf36cbd46d1c.html"
+    },
+    {
+      "name": "国家能源集团2026年第三批通用物资（矿用通信电缆）集中采购公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-15",
+      "open_at": "2026-11-06 11:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "电缆"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261015/d72bca33-7f42-406d-845a-0d6de56b2fda.html"
     }
   ]
 }
