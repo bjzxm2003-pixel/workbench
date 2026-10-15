@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-10-14 13:24:35 UTC",
-  "date": "2026-10-14",
+  "last_run": "2026-10-15 13:09:59 UTC",
+  "date": "2026-10-15",
   "candidates": 5,
   "top3": [
     {
-      "title": "《易经》中最厉害的3句话，听懂瞬间开悟！",
+      "title": "曾仕强最狠的10句国学智慧，听懂一句受益终身！",
       "platform": "抖音",
       "type": "口播",
-      "metric": "模拟点赞 2230000"
+      "metric": "模拟点赞 2200000"
     },
     {
-      "title": "老板用《道德经》一句话，让员工死心塌地！",
-      "platform": "快手",
-      "type": "剧情",
-      "metric": "模拟点赞 1870000"
-    },
-    {
-      "title": "《黄帝内经》24小时养生表，照做多活10年！",
+      "title": "《易经》64卦，只有这一卦是‘大吉’！90%的人不知道",
       "platform": "抖音",
       "type": "干货",
-      "metric": "模拟点赞 1560000"
+      "metric": "模拟点赞 1800000"
+    },
+    {
+      "title": "老板用《道德经》一招化解员工背叛，反转太解气！",
+      "platform": "快手",
+      "type": "剧情",
+      "metric": "模拟点赞 1500000"
     }
   ],
-  "adapted_title": "《道德经》最狠的3个字，听懂逆风翻盘！",
-  "report_file": "data/media/reports/guoxue_2026-10-14.md",
+  "adapted_title": "35岁被裁员，我用《道德经》这一句话翻身了",
+  "report_file": "data/media/reports/guoxue_2026-10-15.md",
   "push": {
     "sent": true
   },
