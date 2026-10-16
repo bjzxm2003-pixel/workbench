@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-15 14:33:30",
+  "updated_at": "2026-10-16 14:25:22",
   "source": "20260901国家能源集团2026年9月第一批招标计划发布汇总表.pdf",
   "rows": [
     {
@@ -3273,6 +3273,106 @@
       ],
       "source": "国能e招",
       "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261015/d72bca33-7f42-406d-845a-0d6de56b2fda.html"
+    },
+    {
+      "name": "福建公司晋江热电统筹多用户多参数工业供汽能级匹配优化的多源供汽关键技术研究与应用项目EPC总承包工程公开招标项目（第2次）招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-16",
+      "open_at": "2026-11-06 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "EPC"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261016/4fed0003-a81e-431e-9aab-3303046dca59.html"
+    },
+    {
+      "name": "重庆公司新能源公司国能重庆万州燕山农（林、渔）(65MWP)光互补项目EPC总承包公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-16",
+      "open_at": "2026-11-09 10:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "EPC"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261016/6719d413-c5c7-4ec8-bcc8-0a20b304c5f4.html"
+    },
+    {
+      "name": "河南公司新能源公司上蔡200MW风电项目勘察设计公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-16",
+      "open_at": "2026-11-09 16:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261016/3fbfc9aa-e741-4da0-9c99-f5e759bde7c7.html"
+    },
+    {
+      "name": "安徽公司宿州电厂国能灵璧县乡村振兴风电项目升压站扩建及风电场区集电线路EPC总承包工程公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-16",
+      "open_at": "2026-11-09 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "EPC",
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261016/a8263602-47e1-4ab9-9506-d7cdf1d27d5b.html"
+    },
+    {
+      "name": "安徽公司宿州电厂国能灵璧县乡村振兴风电项目风电场区EPC总承包工程公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-16",
+      "open_at": "2026-11-09 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "EPC",
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261016/7b1ad200-86bd-45dd-bf4b-bdced1a10803.html"
+    },
+    {
+      "name": "科环集团国能（保定）电气承揽国能智深2026-2027年机柜装配项目电缆框架公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-16",
+      "open_at": "2026-10-27 15:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "电缆"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261016/4382bb3a-b851-4476-8108-b2b5b78fdfa2.html"
+    },
+    {
+      "name": "黑龙江公司宝清公司宝清县10万千瓦风电项目送出线路工程公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-16",
+      "open_at": "2026-11-05 10:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261016/8f9a7115-1335-43f9-80f4-3eb4b6126ecb.html"
     }
   ]
 }
