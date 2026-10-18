@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-16 14:25:22",
+  "updated_at": "2026-10-18 13:40:51",
   "source": "20260901国家能源集团2026年9月第一批招标计划发布汇总表.pdf",
   "rows": [
     {
@@ -3373,6 +3373,20 @@
       ],
       "source": "国能e招",
       "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261016/8f9a7115-1335-43f9-80f4-3eb4b6126ecb.html"
+    },
+    {
+      "name": "国电电力山东新能源新区和莒县风电场37台风机抑制主轴系后移技术改造服务公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-18",
+      "open_at": "2026-11-09 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261018/a9b037de-f9f3-4671-87d1-eba3477f7b5e.html"
     }
   ]
 }
