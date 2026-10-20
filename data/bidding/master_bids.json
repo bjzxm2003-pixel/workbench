@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-18 13:40:51",
+  "updated_at": "2026-10-20 14:34:53",
   "source": "20260901国家能源集团2026年9月第一批招标计划发布汇总表.pdf",
   "rows": [
     {
@@ -3387,6 +3387,76 @@
       ],
       "source": "国能e招",
       "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261018/a9b037de-f9f3-4671-87d1-eba3477f7b5e.html"
+    },
+    {
+      "name": "河南公司焦作公司河南温县风电项目机舱变压器公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-20",
+      "open_at": "2026-11-10 16:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261020/ce1bcadb-d89a-4cad-befd-3c00b6869601.html"
+    },
+    {
+      "name": "宁夏电力固原新能源西吉60万千瓦风电测风技术服务公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-20",
+      "open_at": "2026-11-10 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261020/2eee4725-0fde-400b-91e9-042e37d4f611.html"
+    },
+    {
+      "name": "国华投资国华（沧州）综合能源有限公司“绿港氢城”1090MW光伏项目送出线路切改可研及前期手续办理咨询服务公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-20",
+      "open_at": "2026-11-16 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261020/cf937b36-8714-4633-aac7-8182d1e6c42e.html"
+    },
+    {
+      "name": "湖南公司国华（湖南）新能源有限公司康宁风电场2026-2027年涉网试验服务公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-20",
+      "open_at": "2026-11-10 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261020/e340c293-f6db-4c18-863c-19546b8af5a8.html"
+    },
+    {
+      "name": "广西公司南宁公司全厂废水系统综合治理（二期）EPC公开招标项目（第2次）招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-20",
+      "open_at": "2026-11-09 14:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "EPC"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261020/0135780e-aa78-4a0f-93b6-2f2c3d2bed2e.html"
     }
   ]
 }
