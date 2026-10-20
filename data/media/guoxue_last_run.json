@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-10-19 15:21:00 UTC",
-  "date": "2026-10-19",
+  "last_run": "2026-10-20 13:24:13 UTC",
+  "date": "2026-10-20",
   "candidates": 5,
   "top3": [
     {
-      "title": "老祖宗留下的10句国学经典，背下来终身受益",
+      "title": "《易经》最积德的3句话，背下来改变命运！",
       "platform": "抖音",
-      "type": "口播",
+      "type": "干货",
       "metric": "模拟点赞 2200000"
     },
     {
-      "title": "《论语》最狠的一句，读懂的人不再内耗",
+      "title": "当老外用《论语》怼中国同事，结果笑疯了！",
       "platform": "抖音",
-      "type": "口播",
-      "metric": "模拟点赞 2150000"
+      "type": "场景演绎",
+      "metric": "模拟点赞 1800000"
     },
     {
-      "title": "老公非要争对错，老婆用《道德经》一句话让他闭嘴",
-      "platform": "快手",
-      "type": "剧情",
-      "metric": "模拟点赞 1800000"
+      "title": "《论语》最狠的一句，让无数人瞬间清醒！",
+      "platform": "抖音",
+      "type": "口播",
+      "metric": "模拟点赞 1500000"
     }
   ],
-  "adapted_title": "道德经最狠一招：柔弱胜刚强，低谷期必看！",
-  "report_file": "data/media/reports/guoxue_2026-10-19.md",
+  "adapted_title": "谈判总吃亏？《道德经》教你一招反杀！",
+  "report_file": "data/media/reports/guoxue_2026-10-20.md",
   "push": {
     "sent": true
   },
