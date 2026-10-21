@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-20 14:34:53",
+  "updated_at": "2026-10-21 14:46:20",
   "source": "20260901国家能源集团2026年9月第一批招标计划发布汇总表.pdf",
   "rows": [
     {
@@ -3457,6 +3457,64 @@
       ],
       "source": "国能e招",
       "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261020/0135780e-aa78-4a0f-93b6-2f2c3d2bed2e.html"
+    },
+    {
+      "name": "国电电力宁夏新能源石嘴山第三光伏电站、星能第六风电场实测建模与宽频振荡评估服务公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-21",
+      "open_at": "2026-11-11 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电",
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261021/56bb3815-f54c-4b95-9ab2-c631c3679d7e.html"
+    },
+    {
+      "name": "重庆公司新能源公司国能重庆万州龙沙(230MWP)光伏项目EPC总承包公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-21",
+      "open_at": "2026-11-11 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "EPC",
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261021/a75275af-5e1c-4d40-820b-6e552cca0394.html"
+    },
+    {
+      "name": "科环集团国能水务南京分公司国能谏壁八期2×100万千瓦扩建项目水岛EPC项目预处理成套设备公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-21",
+      "open_at": "2026-11-02 10:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "EPC"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261021/f9d10442-2010-4d8a-8e73-2b428548300c.html"
+    },
+    {
+      "name": "国华投资国华（江苏）风电有限公司等公司变电站备件采购公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-21",
+      "open_at": "2026-11-11 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261021/14efcca4-2abe-4e14-b204-7be20032d88e.html"
     }
   ]
 }
