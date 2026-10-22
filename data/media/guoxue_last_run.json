@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-10-21 13:33:05 UTC",
-  "date": "2026-10-21",
+  "last_run": "2026-10-22 13:34:35 UTC",
+  "date": "2026-10-22",
   "candidates": 5,
   "top3": [
     {
-      "title": "孔子一句话，让你瞬间清醒！",
-      "platform": "抖音",
-      "type": "口播金句",
+      "title": "老板开除老员工，结果公司倒闭了！道德经早就说透了",
+      "platform": "快手",
+      "type": "剧情",
       "metric": "模拟点赞 2200000"
     },
     {
-      "title": "老祖宗的这句话，让我少走10年弯路！",
+      "title": "相亲对象嫌我穷，我一句话让她后悔莫及！",
       "platform": "抖音",
-      "type": "口播",
-      "metric": "模拟点赞 2100000"
+      "type": "剧情",
+      "metric": "模拟点赞 1900000"
     },
     {
-      "title": "易经教你3招，看透身边是人是鬼！",
+      "title": "孔子一句话，让我停止了精神内耗",
       "platform": "抖音",
-      "type": "干货讲解",
+      "type": "口播",
       "metric": "模拟点赞 1800000"
     }
   ],
-  "adapted_title": "《道德经》最狠一招：柔弱胜刚强！",
-  "report_file": "data/media/reports/guoxue_2026-10-21.md",
+  "adapted_title": "被裁员后我靠《道德经》逆袭：柔弱胜刚强的谈判智慧",
+  "report_file": "data/media/reports/guoxue_2026-10-22.md",
   "push": {
     "sent": true
   },
