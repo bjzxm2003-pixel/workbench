@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-21 14:46:20",
+  "updated_at": "2026-10-22 14:46:14",
   "source": "20260901国家能源集团2026年9月第一批招标计划发布汇总表.pdf",
   "rows": [
     {
@@ -3476,7 +3476,7 @@
     {
       "name": "重庆公司新能源公司国能重庆万州龙沙(230MWP)光伏项目EPC总承包公开招标项目招标公告",
       "expect_publish": "",
-      "publish_at": "2026-10-21",
+      "publish_at": "2026-10-22",
       "open_at": "2026-11-11 09:00",
       "bidder": "",
       "status": "",
@@ -3515,6 +3515,76 @@
       ],
       "source": "国能e招",
       "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261021/14efcca4-2abe-4e14-b204-7be20032d88e.html"
+    },
+    {
+      "name": "国家能源集团2026年第三批通用物资（矿用电缆）集中采购公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-22",
+      "open_at": "2026-11-13 11:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "电缆"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261022/82391eda-acf6-41e7-a78f-4460b07e4054.html"
+    },
+    {
+      "name": "云南公司巧家新能源赖石山风电场风机故障穿越功能改造公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-22",
+      "open_at": "2026-11-11 16:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261022/d825a348-14c9-4dac-9ca2-c5ff5a0fb1c9.html"
+    },
+    {
+      "name": "科环集团国能水务2026-2027年度承揽类项目电缆桥架框架公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-22",
+      "open_at": "2026-11-02 16:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "电缆"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261022/55205a86-f7d9-4087-b371-e1e9f9d42708.html"
+    },
+    {
+      "name": "福建公司福州电厂福清市白鸽山350MW渔光互补光伏电站项目光伏组件采购公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-22",
+      "open_at": "2026-11-12 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261022/2ca6a556-5c25-4dc3-9910-646c82a0c380.html"
+    },
+    {
+      "name": "数科公司国能信控技术股份有限公司承揽2026年多项目打捆采购（山西公司河曲信创替代、柳林实时数据接入、霍州光伏数据入湖等项目）服务器数据库等设备公开招标项...",
+      "expect_publish": "",
+      "publish_at": "2026-10-22",
+      "open_at": "2026-11-02 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261022/c4b1f434-1a9e-4ea0-b088-4578973909df.html"
     }
   ]
 }
