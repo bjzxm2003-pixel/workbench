@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-10-22 13:34:35 UTC",
-  "date": "2026-10-22",
+  "last_run": "2026-10-23 13:10:23 UTC",
+  "date": "2026-10-23",
   "candidates": 5,
   "top3": [
     {
-      "title": "老板开除老员工，结果公司倒闭了！道德经早就说透了",
-      "platform": "快手",
-      "type": "剧情",
+      "title": "《论语》中最狠的一句，点醒无数人",
+      "platform": "抖音",
+      "type": "口播",
       "metric": "模拟点赞 2200000"
     },
     {
-      "title": "相亲对象嫌我穷，我一句话让她后悔莫及！",
+      "title": "孩子背《论语》被嘲笑，爷爷一句话让所有人沉默",
       "platform": "抖音",
       "type": "剧情",
-      "metric": "模拟点赞 1900000"
+      "metric": "模拟点赞 2000000"
     },
     {
-      "title": "孔子一句话，让我停止了精神内耗",
-      "platform": "抖音",
-      "type": "口播",
+      "title": "老板用《道德经》一招化解员工矛盾，太绝了！",
+      "platform": "快手",
+      "type": "剧情",
       "metric": "模拟点赞 1800000"
     }
   ],
-  "adapted_title": "被裁员后我靠《道德经》逆袭：柔弱胜刚强的谈判智慧",
-  "report_file": "data/media/reports/guoxue_2026-10-22.md",
+  "adapted_title": "《道德经》最反常识的一句，让你在低谷中逆袭",
+  "report_file": "data/media/reports/guoxue_2026-10-23.md",
   "push": {
     "sent": true
   },
