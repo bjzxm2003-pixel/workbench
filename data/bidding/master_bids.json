@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-23 14:33:32",
+  "updated_at": "2026-10-24 13:44:20",
   "source": "20260901国家能源集团2026年9月第一批招标计划发布汇总表.pdf",
   "rows": [
     {
@@ -3827,6 +3827,34 @@
       ],
       "source": "国能e招",
       "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261023/a009097a-9c56-45c0-a203-13f3125da7b7.html"
+    },
+    {
+      "name": "新疆电力龙源新能源公司乌鲁木齐县10万千瓦风电项目35kV变压器及环网柜采购公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-24",
+      "open_at": "2026-11-14 10:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261024/a33bd847-b6a9-42df-bc5e-4d60d89dd3a8.html"
+    },
+    {
+      "name": "新疆电力乌鲁木齐光伏公司100万千瓦光伏发电项目组件包装及运输服务公开招标招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-24",
+      "open_at": "2026-11-13 15:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261024/82e7b3ca79be4ead9456f142ebf3c92f.html"
     }
   ]
 }
