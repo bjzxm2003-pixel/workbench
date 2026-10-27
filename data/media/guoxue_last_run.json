@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-10-26 14:55:35 UTC",
-  "date": "2026-10-26",
+  "last_run": "2026-10-27 14:06:54 UTC",
+  "date": "2026-10-27",
   "candidates": 5,
   "top3": [
     {
-      "title": "熬夜必看！《黄帝内经》四句话，让你少跑十年医院",
-      "platform": "快手",
-      "type": "口播",
-      "metric": "模拟点赞 2200000"
-    },
-    {
-      "title": "老实人被欺负？老子早就把答案写在这句话里了！",
-      "platform": "快手",
-      "type": "剧情",
-      "metric": "模拟点赞 2100000"
-    },
-    {
-      "title": "富豪破产后，父亲拿出一个破碗，三年后他东山再起！",
+      "title": "《论语》里最狠的一句话，听懂的人不再内耗",
       "platform": "抖音",
+      "type": "口播",
+      "metric": "模拟点赞 2150000"
+    },
+    {
+      "title": "老板用《道德经》套路我，结局反转了！",
+      "platform": "快手",
       "type": "剧情",
-      "metric": "模拟点赞 1900000"
+      "metric": "模拟点赞 1870000"
+    },
+    {
+      "title": "《易经》教你3秒看透一个人，准到吓人！",
+      "platform": "抖音",
+      "type": "干货",
+      "metric": "模拟点赞 1560000"
     }
   ],
-  "adapted_title": "低谷期必看！《道德经》一句话，让你触底反弹",
-  "report_file": "data/media/reports/guoxue_2026-10-26.md",
+  "adapted_title": "《道德经》水最软，却最狠！低谷时看懂这句，逆风翻盘",
+  "report_file": "data/media/reports/guoxue_2026-10-27.md",
   "push": {
     "sent": true
   },
