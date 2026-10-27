@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-24 13:44:20",
+  "updated_at": "2026-10-27 15:37:51",
   "source": "20260901国家能源集团2026年9月第一批招标计划发布汇总表.pdf",
   "rows": [
     {
@@ -3855,6 +3855,106 @@
       ],
       "source": "国能e招",
       "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261024/82e7b3ca79be4ead9456f142ebf3c92f.html"
+    },
+    {
+      "name": "大渡河公司冕宁公司冕宁2#地块拖乌光伏项目本体EPC总承包工程公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-27",
+      "open_at": "2026-11-17 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "EPC",
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261027/7e12dc86-9a54-479b-8d9d-096b2ef7d7df.html"
+    },
+    {
+      "name": "煤制气公司准东20亿立方米/年煤制天然气项目倒班中转宿舍区8#、9#、10#宿舍楼及附属设施工程公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-27",
+      "open_at": "2026-11-17 16:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "施工"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261027/3b954011-8a47-4247-9861-fed34a3df502.html"
+    },
+    {
+      "name": "包头化工神华包头煤制烯烃升级示范项目地下防空工程设计、采购、施工（EPC）总承包公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-27",
+      "open_at": "2026-11-17 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "EPC",
+        "施工"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261027/6ea128f8-d37f-4d85-a7aa-dd2f06869f95.html"
+    },
+    {
+      "name": "龙源电力河北龙源新能源有限公司世都巨鹿县5万千瓦风电项目220kV升压站扩建设计服务公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-27",
+      "open_at": "2026-11-17 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261027/eb53b7b8-25be-4108-826b-eebdb8115781.html"
+    },
+    {
+      "name": "龙源电力河北龙源新能源有限公司青龙10万千瓦风电项目升压站及送出线路设计服务公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-27",
+      "open_at": "",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261027/31105c61-019c-41c2-a35f-56ab84cece28.html"
+    },
+    {
+      "name": "科环集团龙源环保煤电耦合污泥处置智能生产系统研发与示范应用项目智能监测诊断及交互式虚拟检修技术服务公开招标招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-27",
+      "open_at": "",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "煤电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261027/c3bad751d68a453ca71f70af370bd790.html"
+    },
+    {
+      "name": "包神铁路神朔公司神朔线2026年站场光电缆及弱电机房整修工程公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-27",
+      "open_at": "",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "电缆"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261027/b0ce789e-5371-4d70-a27d-2fcfa8d49cac.html"
     }
   ]
 }
