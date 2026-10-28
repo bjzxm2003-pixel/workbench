@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-10-27 14:06:54 UTC",
-  "date": "2026-10-27",
+  "last_run": "2026-10-28 14:55:19 UTC",
+  "date": "2026-10-28",
   "candidates": 5,
   "top3": [
     {
-      "title": "《论语》里最狠的一句话，听懂的人不再内耗",
+      "title": "《论语》最狠的一句，点醒无数中年人！",
       "platform": "抖音",
       "type": "口播",
-      "metric": "模拟点赞 2150000"
+      "metric": "模拟点赞 2200000"
     },
     {
-      "title": "老板用《道德经》套路我，结局反转了！",
+      "title": "老板骂员工，员工用《道德经》回怼，结局反转！",
       "platform": "快手",
       "type": "剧情",
-      "metric": "模拟点赞 1870000"
+      "metric": "模拟点赞 1800000"
     },
     {
-      "title": "《易经》教你3秒看透一个人，准到吓人！",
+      "title": "《易经》透露：2024年想翻身，记住这3条天规！",
       "platform": "抖音",
       "type": "干货",
-      "metric": "模拟点赞 1560000"
+      "metric": "模拟点赞 1500000"
     }
   ],
-  "adapted_title": "《道德经》水最软，却最狠！低谷时看懂这句，逆风翻盘",
-  "report_file": "data/media/reports/guoxue_2026-10-27.md",
+  "adapted_title": "《道德经》最柔的一句话，让无数老板彻夜难眠！",
+  "report_file": "data/media/reports/guoxue_2026-10-28.md",
   "push": {
     "sent": true
   },
