@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-10-28 14:55:19 UTC",
-  "date": "2026-10-28",
+  "last_run": "2026-10-29 15:00:19 UTC",
+  "date": "2026-10-29",
   "candidates": 5,
   "top3": [
     {
-      "title": "《论语》最狠的一句，点醒无数中年人！",
+      "title": "老板用《道德经》PUA我，我反手一句让他哑口无言",
       "platform": "抖音",
-      "type": "口播",
+      "type": "剧情反转",
       "metric": "模拟点赞 2200000"
     },
     {
-      "title": "老板骂员工，员工用《道德经》回怼，结局反转！",
-      "platform": "快手",
-      "type": "剧情",
+      "title": "《论语》最狠的一句，让你30岁后少走10年弯路",
+      "platform": "抖音",
+      "type": "口播",
       "metric": "模拟点赞 1800000"
     },
     {
-      "title": "《易经》透露：2024年想翻身，记住这3条天规！",
+      "title": "为什么熬夜的人老得快？《黄帝内经》一句话点破",
       "platform": "抖音",
-      "type": "干货",
-      "metric": "模拟点赞 1500000"
+      "type": "场景演绎",
+      "metric": "模拟点赞 1200000"
     }
   ],
-  "adapted_title": "《道德经》最柔的一句话，让无数老板彻夜难眠！",
-  "report_file": "data/media/reports/guoxue_2026-10-28.md",
+  "adapted_title": "被裁员后，我靠《道德经》反杀老板",
+  "report_file": "data/media/reports/guoxue_2026-10-29.md",
   "push": {
     "sent": true
   },
