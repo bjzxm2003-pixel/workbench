@@ -1,41 +1,49 @@
 {
-  "last_run": "2026-10-29 20:00:45 UTC",
-  "date": "2026-10-30",
-  "hot_hits": 2,
+  "last_run": "2026-10-30 19:48:34 UTC",
+  "date": "2026-10-31",
+  "hot_hits": 6,
   "articles_verified": 12,
   "recent_48h": 0,
   "topics": {
     "guoxue": [
-      "总跟别人比，难怪你越过越穷",
-      "越急着赚钱，越赚不到钱",
-      "你不是不努力，是总在向外求"
+      "手里没本钱，先别急着学投资",
+      "越焦虑越赚不到钱，问题出在这",
+      "真正会赚钱的人，都懂得借力"
     ],
     "silver": [
-      "天天喝养生茶，怎么越喝越没劲",
-      "上了年纪，男人的底气靠什么撑住",
-      "腿脚不利索，家里这几处得改一改"
+      "入秋后总没劲不是老了",
+      "五十岁后腰膝发沉别硬扛",
+      "家里老人总忘事"
     ]
   },
   "article_titles": {
     "guoxue": [
-      "总跟别人比，难怪你越过越穷",
-      "越急着赚钱，越赚不到钱",
-      "你不是不努力，是总在向外求"
+      "手里没本钱，先别急着学投资",
+      "越焦虑越赚不到钱，问题出在这",
+      "真正会赚钱的人，都懂得借力"
     ],
     "silver": [
-      "天天喝养生茶，怎么越喝越没劲？",
-      "上了年纪，男人的底气靠什么撑住",
-      "腿脚不利索，家里这几处真得改一改"
+      "入秋后总没劲？别急着认老，先换换三餐",
+      "五十岁后腰膝发沉，别硬扛，慢养才是正路",
+      "老人总忘事？先别怪年纪，看看家里这几处"
     ]
   },
-  "report_file": "data/media/reports/toutiao_copy_2026-10-30.md",
-  "csv_file": "data/media/reports/toutiao_data_2026-10-30.csv",
+  "report_file": "data/media/reports/toutiao_copy_2026-10-31.md",
+  "csv_file": "data/media/reports/toutiao_data_2026-10-31.csv",
   "push": {
     "sent": true
   },
   "blocked": 0,
   "blocked_items": [],
-  "needs_review": 0,
-  "needs_review_items": [],
+  "needs_review": 1,
+  "needs_review_items": [
+    {
+      "kind": "主题",
+      "track": "silver",
+      "title": "家里老人总忘事",
+      "width": 7,
+      "reason": "主题标题 7 字，不在 8-20 字内"
+    }
+  ],
   "note": "本任务不输出互动量：平台不公开"
 }
