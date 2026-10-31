@@ -1,49 +1,41 @@
 {
-  "last_run": "2026-10-30 19:48:34 UTC",
-  "date": "2026-10-31",
-  "hot_hits": 6,
+  "last_run": "2026-10-31 18:58:13 UTC",
+  "date": "2026-11-01",
+  "hot_hits": 1,
   "articles_verified": 12,
   "recent_48h": 0,
   "topics": {
     "guoxue": [
-      "手里没本钱，先别急着学投资",
-      "越焦虑越赚不到钱，问题出在这",
-      "真正会赚钱的人，都懂得借力"
+      "越拼命越穷，古人早把原因说透了",
+      "手里留不住钱的人，缺的不是省钱技巧",
+      "总向外找答案，难怪越活越累"
     ],
     "silver": [
-      "入秋后总没劲不是老了",
-      "五十岁后腰膝发沉别硬扛",
-      "家里老人总忘事"
+      "不甜却升糖，老人吃饭要当心",
+      "入秋养关节，男人别硬扛",
+      "在家防跌倒，这几处先改"
     ]
   },
   "article_titles": {
     "guoxue": [
-      "手里没本钱，先别急着学投资",
-      "越焦虑越赚不到钱，问题出在这",
-      "真正会赚钱的人，都懂得借力"
+      "越拼命越穷，古人早说透了",
+      "手里留不住钱，缺的真不是省钱技巧",
+      "总向外找答案，难怪越活越累"
     ],
     "silver": [
-      "入秋后总没劲？别急着认老，先换换三餐",
-      "五十岁后腰膝发沉，别硬扛，慢养才是正路",
-      "老人总忘事？先别怪年纪，看看家里这几处"
+      "不甜却升糖，老人吃饭要当心",
+      "入秋养关节，男人别硬扛",
+      "在家防跌倒，这几处先改"
     ]
   },
-  "report_file": "data/media/reports/toutiao_copy_2026-10-31.md",
-  "csv_file": "data/media/reports/toutiao_data_2026-10-31.csv",
+  "report_file": "data/media/reports/toutiao_copy_2026-11-01.md",
+  "csv_file": "data/media/reports/toutiao_data_2026-11-01.csv",
   "push": {
     "sent": true
   },
   "blocked": 0,
   "blocked_items": [],
-  "needs_review": 1,
-  "needs_review_items": [
-    {
-      "kind": "主题",
-      "track": "silver",
-      "title": "家里老人总忘事",
-      "width": 7,
-      "reason": "主题标题 7 字，不在 8-20 字内"
-    }
-  ],
+  "needs_review": 0,
+  "needs_review_items": [],
   "note": "本任务不输出互动量：平台不公开"
 }
