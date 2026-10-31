@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-27 15:37:51",
+  "updated_at": "2026-10-31 15:33:09",
   "source": "20260901国家能源集团2026年9月第一批招标计划发布汇总表.pdf",
   "rows": [
     {
@@ -3955,6 +3955,76 @@
       ],
       "source": "国能e招",
       "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261027/b0ce789e-5371-4d70-a27d-2fcfa8d49cac.html"
+    },
+    {
+      "name": "新疆电力哈密国能2×66万千瓦热电联产项目铁路专用线EPC公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-31",
+      "open_at": "",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "EPC"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002002/20261031/22823708-ed28-41c6-a9a9-712e5b361e71.html"
+    },
+    {
+      "name": "龙源电力龙源（北京）新能源工程设计研究院有限公司塔架焊缝飞行无损检测及光伏支架原材料复验服务公开招标招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-31",
+      "open_at": "2026-11-23 10:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261031/3194b3fca06f47e0826a5193016b70c8.html"
+    },
+    {
+      "name": "福建公司所属光伏项目2026年-2027年一次调频装置安装及调试公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-31",
+      "open_at": "2026-11-23 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "光伏"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002001/20261031/65c54ff0-da16-48cf-a8c3-52c64a9274a7.html"
+    },
+    {
+      "name": "龙源电力内蒙古龙源蒙东新能源有限公司蒙东区域管辖风电场以大代小申报方案咨询服务公开招标招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-31",
+      "open_at": "2026-11-23 11:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261031/f2b76946fce847a1987295cd1a26b6fc.html"
+    },
+    {
+      "name": "广西公司福阳公司灌阳西山南江风电场辅助基建业务外委服务公开招标招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-10-31",
+      "open_at": "2026-11-20 10:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261031/cd9a24fa907540d7b75f9ee09b94eb29.html"
     }
   ]
 }
