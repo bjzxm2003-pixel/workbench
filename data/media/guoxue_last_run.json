@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-10-31 14:23:17 UTC",
-  "date": "2026-10-31",
+  "last_run": "2026-11-01 14:48:48 UTC",
+  "date": "2026-11-01",
   "candidates": 5,
   "top3": [
     {
-      "title": "《易经》教你三招，2024下半年必转运",
+      "title": "《易经》揭示：2025年最旺的三种人，有你吗？",
       "platform": "抖音",
       "type": "干货",
-      "metric": "模拟点赞 2200000"
+      "metric": "模拟点赞 2230000"
     },
     {
-      "title": "《论语》最狠的一句，点醒无数中年人",
+      "title": "《论语》最狠的一句话，点醒无数中年人！",
       "platform": "抖音",
       "type": "口播",
-      "metric": "模拟点赞 1850000"
+      "metric": "模拟点赞 2150000"
     },
     {
-      "title": "老祖宗留下的10句狠话，句句扎心，听懂受益一生",
+      "title": "孩子不想读书？带他看这个视频，比打骂管用100倍！",
       "platform": "抖音",
-      "type": "口播",
-      "metric": "模拟点赞 1500000"
+      "type": "剧情",
+      "metric": "模拟点赞 1980000"
     }
   ],
-  "adapted_title": "《道德经》教你柔弱胜刚强，职场低谷期必看！",
-  "report_file": "data/media/reports/guoxue_2026-10-31.md",
+  "adapted_title": "《道德经》水之道：低谷期最该学的软实力，学会受用一生",
+  "report_file": "data/media/reports/guoxue_2026-11-01.md",
   "push": {
     "sent": true
   },
