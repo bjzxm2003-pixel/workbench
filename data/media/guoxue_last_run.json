@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-11-01 14:48:48 UTC",
-  "date": "2026-11-01",
+  "last_run": "2026-11-02 17:56:50 UTC",
+  "date": "2026-11-03",
   "candidates": 5,
   "top3": [
     {
-      "title": "《易经》揭示：2025年最旺的三种人，有你吗？",
-      "platform": "抖音",
-      "type": "干货",
-      "metric": "模拟点赞 2230000"
-    },
-    {
-      "title": "《论语》最狠的一句话，点醒无数中年人！",
+      "title": "《论语》最狠的一句，点醒无数中年人",
       "platform": "抖音",
       "type": "口播",
-      "metric": "模拟点赞 2150000"
+      "metric": "模拟点赞 2200000"
     },
     {
-      "title": "孩子不想读书？带他看这个视频，比打骂管用100倍！",
+      "title": "如果人生只能读一本书，我选《道德经》",
       "platform": "抖音",
+      "type": "口播",
+      "metric": "模拟点赞 2000000"
+    },
+    {
+      "title": "老板用《道德经》一句话，让争吵的合伙人当场沉默",
+      "platform": "快手",
       "type": "剧情",
-      "metric": "模拟点赞 1980000"
+      "metric": "模拟点赞 1800000"
     }
   ],
-  "adapted_title": "《道德经》水之道：低谷期最该学的软实力，学会受用一生",
-  "report_file": "data/media/reports/guoxue_2026-11-01.md",
+  "adapted_title": "《道德经》最柔的一句话，让你在职场硬起来",
+  "report_file": "data/media/reports/guoxue_2026-11-03.md",
   "push": {
     "sent": true
   },
