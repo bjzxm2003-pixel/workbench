@@ -1,28 +1,28 @@
 {
-  "last_run": "2026-11-02 17:56:50 UTC",
+  "last_run": "2026-11-03 15:56:07 UTC",
   "date": "2026-11-03",
   "candidates": 5,
   "top3": [
     {
-      "title": "《论语》最狠的一句，点醒无数中年人",
-      "platform": "抖音",
-      "type": "口播",
+      "title": "婆婆嫌我败家，我靠“无为”让全家闭嘴",
+      "platform": "快手",
+      "type": "剧情反转",
       "metric": "模拟点赞 2200000"
     },
     {
-      "title": "如果人生只能读一本书，我选《道德经》",
+      "title": "三十岁以后，请逼自己养成这三种“反人性”思维",
       "platform": "抖音",
       "type": "口播",
-      "metric": "模拟点赞 2000000"
+      "metric": "模拟点赞 1800000"
     },
     {
-      "title": "老板用《道德经》一句话，让争吵的合伙人当场沉默",
-      "platform": "快手",
-      "type": "剧情",
-      "metric": "模拟点赞 1800000"
+      "title": "如果这辈子只能记住一句话，我选庄子这句“无用之用”",
+      "platform": "抖音",
+      "type": "口播",
+      "metric": "模拟点赞 1600000"
     }
   ],
-  "adapted_title": "《道德经》最柔的一句话，让你在职场硬起来",
+  "adapted_title": "被同事抢功后，我靠“柔弱”反杀升职",
   "report_file": "data/media/reports/guoxue_2026-11-03.md",
   "push": {
     "sent": true
