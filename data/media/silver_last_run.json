@@ -1,30 +1,30 @@
 {
-  "last_run": "2026-11-03 16:46:31 UTC",
-  "date": "2026-11-04",
+  "last_run": "2026-11-04 16:44:35 UTC",
+  "date": "2026-11-05",
   "real": 0,
   "sim": 5,
   "top3": [
     {
-      "title": "陪78岁奶奶拍了一周vlog，才发现她的生活比我的精彩多了",
-      "platform": "小红书",
+      "title": "干了5年养老院护工，说几句家属不爱听但必须知道的大实话",
+      "platform": "今日头条",
       "sim": true,
-      "metric": "模拟点赞 178000"
+      "metric": "模拟点赞 158000"
     },
     {
-      "title": "给爸妈家做了5处适老化改造，花了不到3000块，他们说比给钱还实在",
+      "title": "陪65岁妈妈逛了一次老年大学，我才知道她们的快乐有多具体",
       "platform": "小红书",
       "sim": true,
-      "metric": "模拟点赞 156000"
+      "metric": "模拟点赞 132000"
     },
     {
-      "title": "爸妈开始忘事后，我做了这份家庭照护清单，评论区都在抄作业",
-      "platform": "小红书",
+      "title": "给爸妈家做了3处适老化改造，花了不到800块，老人终于不摔跤了",
+      "platform": "今日头条",
       "sim": true,
-      "metric": "模拟点赞 134000"
+      "metric": "模拟点赞 86000"
     }
   ],
-  "rewrite_title": "我偷拍78岁奶奶一周，发现她微信步数天天2万+，日程比CEO还满",
-  "report_file": "data/media/reports/silver_2026-11-04.md",
+  "rewrite_title": "干了5年养老院护工，我含泪说透：选院别看装修，看这3个地方，能救老人半条命",
+  "report_file": "data/media/reports/silver_2026-11-05.md",
   "push": {
     "sent": true
   },
