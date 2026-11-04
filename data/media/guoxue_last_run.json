@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-11-03 15:56:07 UTC",
-  "date": "2026-11-03",
+  "last_run": "2026-11-04 16:00:24 UTC",
+  "date": "2026-11-04",
   "candidates": 5,
   "top3": [
     {
-      "title": "婆婆嫌我败家，我靠“无为”让全家闭嘴",
-      "platform": "快手",
-      "type": "剧情反转",
+      "title": "《易经》中最厉害的3个字，读懂改命",
+      "platform": "抖音",
+      "type": "干货",
       "metric": "模拟点赞 2200000"
     },
     {
-      "title": "三十岁以后，请逼自己养成这三种“反人性”思维",
+      "title": "《论语》里这句话，读懂的人少走十年弯路",
       "platform": "抖音",
       "type": "口播",
-      "metric": "模拟点赞 1800000"
+      "metric": "模拟点赞 1880000"
     },
     {
-      "title": "如果这辈子只能记住一句话，我选庄子这句“无用之用”",
-      "platform": "抖音",
-      "type": "口播",
-      "metric": "模拟点赞 1600000"
+      "title": "老板用《道德经》一句话，让公司起死回生",
+      "platform": "快手",
+      "type": "剧情",
+      "metric": "模拟点赞 1520000"
     }
   ],
-  "adapted_title": "被同事抢功后，我靠“柔弱”反杀升职",
-  "report_file": "data/media/reports/guoxue_2026-11-03.md",
+  "adapted_title": "《道德经》最反常识的智慧：越软，越赢",
+  "report_file": "data/media/reports/guoxue_2026-11-04.md",
   "push": {
     "sent": true
   },
