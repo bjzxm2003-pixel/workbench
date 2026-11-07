@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-31 15:33:09",
+  "updated_at": "2026-11-07 15:58:31",
   "source": "20260901国家能源集团2026年9月第一批招标计划发布汇总表.pdf",
   "rows": [
     {
@@ -4025,6 +4025,20 @@
       ],
       "source": "国能e招",
       "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261031/cd9a24fa907540d7b75f9ee09b94eb29.html"
+    },
+    {
+      "name": "新疆电力龙源新能源公司、巴州公司四个风电项目风电场及配套升压站工程监理服务公开招标项目招标公告",
+      "expect_publish": "",
+      "publish_at": "2026-11-07",
+      "open_at": "2026-11-27 09:00",
+      "bidder": "",
+      "status": "",
+      "remark": "",
+      "keywords": [
+        "风电"
+      ],
+      "source": "国能e招",
+      "url": "https://www.chnenergybidding.com.cn/bidweb/001/001002/001002003/20261107/488c87b2-adb4-407c-aef8-8370d0d8cc4b.html"
     }
   ]
 }
