@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-11-06 15:45:10 UTC",
-  "date": "2026-11-06",
+  "last_run": "2026-11-07 14:44:34 UTC",
+  "date": "2026-11-07",
   "candidates": 5,
   "top3": [
     {
-      "title": "老板骂我‘上善若水’是窝囊，三个月后他求我回来",
+      "title": "儿媳妇嫌婆婆啰嗦，直到翻出她藏在米缸里的本子",
       "platform": "快手",
-      "type": "剧情",
-      "metric": "模拟点赞 2100000"
+      "type": "剧情反转",
+      "metric": "模拟点赞 2140000"
     },
     {
-      "title": "《论语》最狠的一句，90%的人理解错了",
+      "title": "《易经》最狠的一句话，点醒了我30年",
       "platform": "抖音",
-      "type": "口播",
-      "metric": "模拟点赞 1800000"
+      "type": "口播金句",
+      "metric": "模拟点赞 1860000"
     },
     {
-      "title": "易经中‘潜龙勿用’：真正厉害的人，都在偷偷做这件事",
+      "title": "人到中年才懂：话少，是一个人最高级的修养",
       "platform": "抖音",
-      "type": "干货",
-      "metric": "模拟点赞 1500000"
+      "type": "口播金句",
+      "metric": "模拟点赞 1530000"
     }
   ],
-  "adapted_title": "同事说我‘潜龙勿用’是躺平，半年后我升总监他傻了",
-  "report_file": "data/media/reports/guoxue_2026-11-06.md",
+  "adapted_title": "团队里最沉默的人，往往最狠｜《易经》潜龙勿用",
+  "report_file": "data/media/reports/guoxue_2026-11-07.md",
   "push": {
     "sent": true
   },
