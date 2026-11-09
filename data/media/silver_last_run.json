@@ -1,30 +1,30 @@
 {
-  "last_run": "2026-11-08 15:42:33 UTC",
-  "date": "2026-11-08",
+  "last_run": "2026-11-09 19:25:06 UTC",
+  "date": "2026-11-10",
   "real": 0,
   "sim": 5,
   "top3": [
     {
-      "title": "干了8年养老院护工，说几句可能得罪同行的大实话",
+      "title": "在养老院干了5年护理员，说几句行业里没人愿意明说的实话",
       "platform": "今日头条",
       "sim": true,
-      "metric": "模拟点赞 178000"
+      "metric": "模拟点赞 158000"
     },
     {
-      "title": "给爸妈家做了5处适老化改造，总共花了不到3000块，爸妈说比住养老院舒心",
-      "platform": "今日头条",
+      "title": "陪73岁奶奶拍了一周vlog，她的作息和消费习惯让我这个90后彻底服了",
+      "platform": "小红书",
       "sim": true,
-      "metric": "模拟点赞 156000"
+      "metric": "模拟点赞 132000"
     },
     {
-      "title": "我们小区60岁以上老人占了四成，这两年悄悄发生的3个变化",
-      "platform": "今日头条",
+      "title": "带爸妈去云南康养旅居一个月，算完账我发现比在家请钟点工还划算",
+      "platform": "小红书",
       "sim": true,
-      "metric": "模拟点赞 135000"
+      "metric": "模拟点赞 97000"
     }
   ],
-  "rewrite_title": "干了8年养老院护工，我劝你：这3种老人别送养老院，钱花了人受罪",
-  "report_file": "data/media/reports/silver_2026-11-08.md",
+  "rewrite_title": "我在养老院干了5年护理员，说3句没人敢说的实话：第2句最扎心",
+  "report_file": "data/media/reports/silver_2026-11-10.md",
   "push": {
     "sent": true
   },
