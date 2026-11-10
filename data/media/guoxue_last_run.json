@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-11-08 14:50:59 UTC",
-  "date": "2026-11-08",
+  "last_run": "2026-11-10 16:12:00 UTC",
+  "date": "2026-11-11",
   "candidates": 5,
   "top3": [
     {
-      "title": "《道德经》最狠的一句话，让你瞬间清醒！",
+      "title": "《易经》乾卦六爻，揭秘人生六个阶段，你现在在哪一爻？",
       "platform": "抖音",
-      "type": "口播",
-      "metric": "模拟点赞 2200000"
+      "type": "干货",
+      "metric": "模拟点赞 2100000"
     },
     {
-      "title": "老板当众羞辱员工，保洁阿姨一句话让全场沉默",
+      "title": "《论语》中最狠的一句话，读懂的人少走十年弯路",
+      "platform": "抖音",
+      "type": "口播",
+      "metric": "模拟点赞 1850000"
+    },
+    {
+      "title": "菜市场大妈一句话，点醒千万老板：什么叫“吃亏是福”",
       "platform": "抖音",
       "type": "剧情反转",
-      "metric": "模拟点赞 2000000"
-    },
-    {
-      "title": "《黄帝内经》早就说了：90%的病都是这么来的",
-      "platform": "快手",
-      "type": "口播",
-      "metric": "模拟点赞 1800000"
+      "metric": "模拟点赞 1680000"
     }
   ],
-  "adapted_title": "《道德经》最狠的一句话，让你瞬间清醒！",
-  "report_file": "data/media/reports/guoxue_2026-11-08.md",
+  "adapted_title": "《道德经》柔弱胜刚强：低谷时最该懂的道理",
+  "report_file": "data/media/reports/guoxue_2026-11-11.md",
   "push": {
     "sent": true
   },
