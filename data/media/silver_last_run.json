@@ -1,30 +1,30 @@
 {
-  "last_run": "2026-11-10 16:43:08 UTC",
-  "date": "2026-11-11",
+  "last_run": "2026-11-11 16:49:52 UTC",
+  "date": "2026-11-12",
   "real": 0,
   "sim": 5,
   "top3": [
     {
-      "title": "第一批独生子女父母已经70岁：我们该如何养老？",
-      "platform": "今日头条",
-      "sim": true,
-      "metric": "模拟点赞 87000"
-    },
-    {
-      "title": "73岁奶奶直播教广场舞，月入过万：银发经济里的新活法",
-      "platform": "今日头条",
-      "sim": true,
-      "metric": "模拟点赞 52000"
-    },
-    {
-      "title": "退休后和闺蜜合租养老，我们的晚年生活比年轻人还精彩",
+      "title": "爸妈退休后去云南住了1个月，算完账我沉默了",
       "platform": "小红书",
       "sim": true,
-      "metric": "模拟点赞 45000"
+      "metric": "模拟点赞 156000"
+    },
+    {
+      "title": "陪65岁妈妈逛了一次菜市场，才发现退休生活可以这么有滋有味",
+      "platform": "小红书",
+      "sim": true,
+      "metric": "模拟点赞 132000"
+    },
+    {
+      "title": "跑了5家养老院后说点实话：每月3000和8000的差别到底在哪",
+      "platform": "今日头条",
+      "sim": true,
+      "metric": "模拟点赞 98000"
     }
   ],
-  "rewrite_title": "第一批独生子女父母已70岁：1个孩子养4个老人，这代人的养老困局怎么破？",
-  "report_file": "data/media/reports/silver_2026-11-11.md",
+  "rewrite_title": "爸妈去云南住了一个月，账单发来我愣了：比在家还省2000块",
+  "report_file": "data/media/reports/silver_2026-11-12.md",
   "push": {
     "sent": true
   },
