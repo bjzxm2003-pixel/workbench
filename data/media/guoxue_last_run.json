@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-11-11 15:55:44 UTC",
-  "date": "2026-11-11",
+  "last_run": "2026-11-12 16:38:40 UTC",
+  "date": "2026-11-13",
   "candidates": 5,
   "top3": [
     {
-      "title": "《论语》最狠的一句话，90%的人理解反了！",
+      "title": "“如果你觉得人生太难，就看看这几句话，瞬间通透！”",
       "platform": "抖音",
-      "type": "口播",
+      "type": "口播金句",
       "metric": "模拟点赞 2200000"
     },
     {
-      "title": "老板逼我加班，我用《道德经》反杀！",
+      "title": "“准婆婆嫌我学历低，我一句话让她哑口无言！”",
       "platform": "快手",
-      "type": "剧情",
+      "type": "剧情反转",
       "metric": "模拟点赞 1800000"
     },
     {
-      "title": "《易经》最准的识人术：看这3点，一眼看穿小人！",
+      "title": "“为什么你总是运气不好？易经告诉你三个改运秘诀！”",
       "platform": "抖音",
-      "type": "干货",
+      "type": "干货讲解",
       "metric": "模拟点赞 1500000"
     }
   ],
-  "adapted_title": "《道德经》最反常识的一句话：越软的人，越狠！",
-  "report_file": "data/media/reports/guoxue_2026-11-11.md",
+  "adapted_title": "低谷期必看！易经一句话让你翻身",
+  "report_file": "data/media/reports/guoxue_2026-11-13.md",
   "push": {
     "sent": true
   },
