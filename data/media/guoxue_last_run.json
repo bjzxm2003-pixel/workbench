@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-11-14 14:51:43 UTC",
-  "date": "2026-11-14",
+  "last_run": "2026-11-15 15:26:57 UTC",
+  "date": "2026-11-15",
   "candidates": 5,
   "top3": [
     {
-      "title": "老板刁难老实员工，保洁阿姨一句话让全场沉默",
+      "title": "《论语》最狠的一句，让无数成年人沉默",
+      "platform": "抖音",
+      "type": "口播金句",
+      "metric": "模拟点赞 2200000"
+    },
+    {
+      "title": "老板用《道德经》套路我，结果被我反杀",
       "platform": "快手",
-      "type": "剧情",
-      "metric": "模拟点赞 2100000"
-    },
-    {
-      "title": "《论语》中最狠的一句话，听懂的人少走十年弯路",
-      "platform": "抖音",
-      "type": "口播",
-      "metric": "模拟点赞 1850000"
-    },
-    {
-      "title": "相亲对象嫌我穷，我背了一段《论语》她当场脸红",
-      "platform": "抖音",
       "type": "剧情反转",
+      "metric": "模拟点赞 1800000"
+    },
+    {
+      "title": "《易经》真正厉害的不是算卦，而是这3个字",
+      "platform": "抖音",
+      "type": "干货讲解",
       "metric": "模拟点赞 1500000"
     }
   ],
-  "adapted_title": "被裁员后，我靠《道德经》逆袭：柔弱胜刚强，低谷期必看！",
-  "report_file": "data/media/reports/guoxue_2026-11-14.md",
+  "adapted_title": "《道德经》最柔的一句话，让我在谈判桌上赢了",
+  "report_file": "data/media/reports/guoxue_2026-11-15.md",
   "push": {
     "sent": true
   },
