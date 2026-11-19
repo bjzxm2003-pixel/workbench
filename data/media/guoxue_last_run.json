@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-11-18 17:00:01 UTC",
-  "date": "2026-11-19",
+  "last_run": "2026-11-19 17:09:07 UTC",
+  "date": "2026-11-20",
   "candidates": 5,
   "top3": [
     {
-      "title": "为什么你越努力越穷？国学大师一句话点醒千万人！",
-      "platform": "抖音",
-      "type": "口播",
+      "title": "老板用《道德经》套路我，结果被反杀",
+      "platform": "快手",
+      "type": "剧情反转",
       "metric": "模拟点赞 2200000"
     },
     {
-      "title": "《论语》这三句话，让你瞬间看清一个人，别再吃亏了！",
+      "title": "《论语》最狠的一句话，让你瞬间清醒",
       "platform": "抖音",
-      "type": "口播",
+      "type": "口播金句",
       "metric": "模拟点赞 1860000"
     },
     {
-      "title": "老公要离婚，婆婆拿出《易经》说了一句话，全场沉默！",
-      "platform": "快手",
-      "type": "剧情",
-      "metric": "模拟点赞 1200000"
+      "title": "《易经》教你一眼看穿一个人",
+      "platform": "抖音",
+      "type": "干货讲解",
+      "metric": "模拟点赞 1580000"
     }
   ],
-  "adapted_title": "为什么你越努力越穷？国学大师一句话点醒千万人！",
-  "report_file": "data/media/reports/guoxue_2026-11-19.md",
+  "adapted_title": "《道德经》柔弱胜刚强：3句话让强势老板当场沉默",
+  "report_file": "data/media/reports/guoxue_2026-11-20.md",
   "push": {
     "sent": true
   },
