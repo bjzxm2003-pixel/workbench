@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-11-19 17:09:07 UTC",
-  "date": "2026-11-20",
+  "last_run": "2026-11-20 16:46:34 UTC",
+  "date": "2026-11-21",
   "candidates": 5,
   "top3": [
     {
-      "title": "老板用《道德经》套路我，结果被反杀",
-      "platform": "快手",
-      "type": "剧情反转",
-      "metric": "模拟点赞 2200000"
+      "title": "“曾仕强：一个人开始走运，身上会有这3个征兆”",
+      "platform": "抖音",
+      "type": "口播金句",
+      "metric": "模拟点赞 2180000"
     },
     {
-      "title": "《论语》最狠的一句话，让你瞬间清醒",
+      "title": "“婆婆骂我天天看易经不干活，直到我用一句话救了她弟弟”",
+      "platform": "快手",
+      "type": "剧情反转",
+      "metric": "模拟点赞 2120000"
+    },
+    {
+      "title": "“三十岁才明白，孔子这句话不是教你善良，是教你保命”",
       "platform": "抖音",
       "type": "口播金句",
       "metric": "模拟点赞 1860000"
-    },
-    {
-      "title": "《易经》教你一眼看穿一个人",
-      "platform": "抖音",
-      "type": "干货讲解",
-      "metric": "模拟点赞 1580000"
     }
   ],
-  "adapted_title": "《道德经》柔弱胜刚强：3句话让强势老板当场沉默",
-  "report_file": "data/media/reports/guoxue_2026-11-20.md",
+  "adapted_title": "道德经：低谷时学会这招，没人敢小看你",
+  "report_file": "data/media/reports/guoxue_2026-11-21.md",
   "push": {
     "sent": true
   },
