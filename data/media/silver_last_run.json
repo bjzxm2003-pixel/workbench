@@ -1,30 +1,30 @@
 {
-  "last_run": "2026-11-22 16:49:54 UTC",
-  "date": "2026-11-23",
+  "last_run": "2026-11-23 20:47:24 UTC",
+  "date": "2026-11-24",
   "real": 0,
   "sim": 5,
   "top3": [
     {
-      "title": "第一批独生子女父母开始集中养老，这3个现实问题躲不开",
+      "title": "独生子女父母养老的真实账本：一个月要花多少钱，我算给你看",
       "platform": "今日头条",
       "sim": true,
-      "metric": "模拟点赞 175000"
+      "metric": "模拟点赞 135000"
     },
     {
-      "title": "给爸妈家做了3处适老化改造，我妈说像换了套房",
-      "platform": "小红书",
+      "title": "跑了12家养老院后，我总结出选养老院的5个硬指标，别再只看环境了",
+      "platform": "今日头条",
       "sim": true,
-      "metric": "模拟点赞 156000"
+      "metric": "模拟点赞 115000"
     },
     {
-      "title": "65岁我妈的独居日程表，比我的还满",
-      "platform": "小红书",
+      "title": "给爸妈家做了6处适老化改造，花了不到8000，他们终于不摔跤了",
+      "platform": "今日头条",
       "sim": true,
-      "metric": "模拟点赞 138000"
+      "metric": "模拟点赞 92000"
     }
   ],
-  "rewrite_title": "1.8亿独生子女父母正集体迈入75岁：钱、人、住，三道坎一个都躲不掉",
-  "report_file": "data/media/reports/silver_2026-11-23.md",
+  "rewrite_title": "独生子女养老账本：父母73岁后，我每月多花6800元，算完不敢辞职",
+  "report_file": "data/media/reports/silver_2026-11-24.md",
   "push": {
     "sent": true
   },
