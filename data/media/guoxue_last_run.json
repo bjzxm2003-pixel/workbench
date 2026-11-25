@@ -1,29 +1,29 @@
 {
-  "last_run": "2026-11-23 19:56:05 UTC",
-  "date": "2026-11-24",
+  "last_run": "2026-11-25 18:30:14 UTC",
+  "date": "2026-11-26",
   "candidates": 5,
   "top3": [
     {
-      "title": "如果35岁前明白这3个字，少走10年弯路",
-      "platform": "抖音",
-      "type": "口播",
+      "title": "妻子要离婚，我用《易经》一句话挽回",
+      "platform": "快手",
+      "type": "剧情",
       "metric": "模拟点赞 2100000"
     },
     {
-      "title": "儿子嫌父亲没本事，父亲一句话让他跪地痛哭",
-      "platform": "快手",
-      "type": "剧情",
+      "title": "35岁以后，必须明白的三个扎心真相",
+      "platform": "抖音",
+      "type": "口播",
       "metric": "模拟点赞 1800000"
     },
     {
-      "title": "易经最狠的天机：永远不要让别人借走你的运气",
+      "title": "孔子一句话，让我在职场少走十年弯路",
       "platform": "抖音",
-      "type": "干货",
+      "type": "口播",
       "metric": "模拟点赞 1500000"
     }
   ],
-  "adapted_title": "低谷期别硬扛！易经这3个字，让你触底反弹",
-  "report_file": "data/media/reports/guoxue_2026-11-24.md",
+  "adapted_title": "谈判被压价？《道德经》一句‘柔弱胜刚强’让我多赚20万",
+  "report_file": "data/media/reports/guoxue_2026-11-26.md",
   "push": {
     "sent": true
   },
